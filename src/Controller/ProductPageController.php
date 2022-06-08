@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Entity\Biens;
+use App\Entity\Bien;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -18,7 +18,7 @@ class ProductPageController extends AbstractController
     public function details($id, ManagerRegistry $doctrine): Response
     {
         // Récupère l'objet en fonction de l'@Id (généralement appelé $id)
-        $bien = $doctrine->getRepository(Biens::class)->find($id);
+        $bien = $doctrine->getRepository(Bien::class)->find($id);
         // vérifier $bien avec le var dump => if($bien){var dump}else{erreur}
         return $this->render('product_page/details.html.twig', [
             'bien' => $bien
@@ -29,7 +29,7 @@ class ProductPageController extends AbstractController
     public function add()
     {
         //etape 1 : à la création, on instancie une objet vide
-        $bien = new Biens();
+        $bien = new Bien();
         //vous pouvez setter les valeurs par défaut de l'objet
         $bien->setCreatedAt(new DateTime()); //donne la date du jour
 

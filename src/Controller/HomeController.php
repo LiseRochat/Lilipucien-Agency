@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Biens;
+use App\Entity\Bien;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         //$biens = $doctrine->getRepository(Biens::class)->findAll();
-        $biens = $doctrine->getRepository(Biens::class)->findBy([], ['id' => 'DESC']);
+        $biens = $doctrine->getRepository(Bien::class)->findBy([], ['id' => 'DESC']);
         return $this->render('home/index.html.twig', [
             'biens' => $biens 
         ]);
