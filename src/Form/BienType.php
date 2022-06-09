@@ -18,11 +18,34 @@ class BienType extends AbstractType
         $builder
             ->add('titre', TypeTextType::class, [
                 'required' => true,
-                'label' => 'Titre de l\'annonce'
+                'label' => 'Titre de l\'annonce',
+                'attr' => [
+                    'placeholder' => 'Maison de village',
+                ],
             ])
-            ->add('prix', NumberType::class)
-            ->add('description', TextareaType::class)
-            ->add('ville', TypeTextType::class)
+            ->add('prix', NumberType::class, [
+                'required' => false,
+                'label' => 'Prix du bien immobilier',
+                'attr' => [
+                    'placeholder' => '800 000 euros',
+                ],
+                'invalid_message' => 'Vous avez entrez un nombre invalide. Le minimum est %num%',
+                'invalid_message_parameters' => ['%num%' => 6],
+            ])
+            ->add('description', TextareaType::class, [
+                'required' => false,
+                'label' => 'Description présentant votre bien immobilier',
+                'attr' => [
+                    'placeholder' => 'Maison 100 mètre carré. 3 chambres, deux salles de bains, cuisine équipé. Salon de 30 mètre carré. Veranda sur jardin de 200 mètre carré. Situé en plein coeur du premier arrondissement de Lyon. Bien rare à visiter sans tarder !',
+                ],
+            ])
+            ->add('ville', TypeTextType::class, [
+                'required' => false,
+                'label' => 'Localisation du bien',
+                'attr' => [
+                    'placeholder' => 'Lyon 69001',
+                ],
+            ])
             ->add('save', SubmitType::class, [
                     'label' => 'Envoyer'
                 ])
