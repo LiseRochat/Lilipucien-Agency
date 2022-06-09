@@ -5,10 +5,16 @@
   		<ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
             <li class="breadcrumb-item active" aria-current="page">Administration</li>
-    		<li class="breadcrumb-item active" aria-current="page">Accueil</li>
+    		<li class="breadcrumb-item active" aria-current="page">Status</li>
   		</ol>
 	</nav>
-    <div class="container px-4 px-lg-5 my-5">
+    <div class="container">
+    {% for message in app.flashes('success_add') %}
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong>Félicitation </strong>{{ message }}
+				</div>
+				</br>
+			{% endfor %}
         <a class="btn btn-success my-3" href="{{ path('app_status_add') }}">
             <i class="bi bi-plus-circle"></i>
                 Ajouter un status
@@ -29,11 +35,11 @@
                     <td>{{ statusOne.title }}</td>
                     <td>{{ statusOne.description }}</td>
                     <td> 
-                        <a class="btn btn-secondary" href="{{ path('app_status_edit', {id : statusOne.id }) }}">
+                        <a class="btn btn-secondary my-1" href="{{ path('app_status_edit', {id : statusOne.id }) }}">
                             <i class="bi bi-pen"></i>
                                 Modifier le status
                         </a>
-                        <a class="btn btn-danger" href="{{ path('app_status_delete', {id : statusOne.id }) }}">
+                        <a class="btn btn-danger my-1" href="{{ path('app_status_delete', {id : statusOne.id }) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce status ?')>
                             <i class="bi-trash me-1"></i>
                                 Supprimez le status
                         </a> 
