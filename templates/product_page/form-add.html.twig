@@ -8,13 +8,12 @@
     <div class="container">
         <h1>{{form_title}}</h1>
         {# METHODE 01 #}
-        {{form(formBien)}}
+        {# {{form(formBien)}} #}
 
         {# METHODE 02 #}
         {{form_start(formBien)}}
             {{form_widget(formBien)}}
-           <input type="submit" value="{{form_submit}}">
-           <br>
+           <input class = "btn btn-primary my-3"  type="submit" value="{{form_submit}}">
         {{form_end(formBien)}}
 
     </div>
