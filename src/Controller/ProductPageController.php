@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Bien;
+use App\Form\BienType;
 use DateTimeImmutable;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -36,20 +37,21 @@ class ProductPageController extends AbstractController
         $bien->setCreatedAt(new DateTimeImmutable()); //donne la date du jour
         $bien->setUpdatedAt(new DateTimeImmutable()); //donne la date du jour
 
-        
-        $formBien = $this->createFormBuilder($bien)
-        ->add('titre', TextType::class)
-        ->add('prix', IntegerType::class)
-        ->add('description', TextAreaType::class)
-        ->add('ville', TextType::class)
-        ->add('save', SubmitType::class, [
-            'label' => 'Envoyer'
-        ])
-        ->getForm();
+        // METHODE 1 : création du formulaire directement en controller
+        // $formBien = $this->createFormBuilder($bien)
+        // ->add('titre', TextType::class)
+        // ->add('prix', IntegerType::class)
+        // ->add('description', TextAreaType::class)
+        // ->add('ville', TextType::class)
+        // ->add('save', SubmitType::class, [
+        //     'label' => 'Envoyer'
+        // ])
+        // ->getForm();
 
-        // // METHODE 1 : création du formulaire directement en controller
+        //METHODE 02 : création formulaire avec le composant formType
+        $formBien = $this->createForm(BienType::class, $bien);
+
         return $this->render('product_page/form-add.html.twig',['formBien' => $formBien->createView()]);
-        // METHODE 2
         // return $this->renderForm('bien/form-add.html.twig', ['formBien' => $formBien]);
     }
 
