@@ -1,20 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actions Bien Immobilier{% endblock %}
+{% block title %}Actions Status{% endblock %}
 
 {% block header %}{% endblock %}
 
 {% block body %}
     <div class="container">
         <h1>{{form_title}}</h1>
-        {# METHODE 01 #}
-        {# {{form(formBien)}} #}
-
-        {# METHODE 02 #}
-        {{form_start(formBien)}}
-            {{form_widget(formBien)}}
+        {{form_start(formStatus)}}
+            {{form_widget(formStatus)}}
            <input class = "btn btn-primary my-3"  type="submit" value="{{form_submit}}">
-        {{form_end(formBien)}}
-
+        {{form_end(formStatus)}}
     </div>
 {% endblock %}
