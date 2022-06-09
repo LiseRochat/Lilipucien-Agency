@@ -2,6 +2,12 @@
 {% block title %}{{ bien.titre }}{% endblock %}
 {% block header %}{% endblock %}
 {% block body %}
+    <nav aria-label="breadcrumb">
+  		<ol class="breadcrumb">
+    		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ bien.titre }}</li>
+  		</ol>
+	</nav>
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
