@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Bien;
+use DateTimeImmutable;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -31,17 +32,21 @@ class ProductPageController extends AbstractController
         //etape 1 : à la création, on instancie une objet vide
         $bien = new Bien();
         //vous pouvez setter les valeurs par défaut de l'objet
-        $bien->setCreatedAt(new DateTime()); //donne la date du jour
+        $bien->setCreatedAt(new DateTimeImmutable()); //donne la date du jour
+        $bien->setUpdatedAt(new DateTimeImmutable()); //donne la date du jour
 
-        // METHODE 1 : création du formulaire directement en controller
+        
         $formBien = $this->createFormBuilder($bien)
-        ->add('title', TextType::class)
+        ->add('titre', TextType::class)
         ->add('prix', IntegerType::class)
         ->add('description', TextAreaType::class)
-        ->add('city', TextType::class)
+        ->add('ville', TextType::class)
         ->getForm();
 
-        return $this->render('product_page/form-add.html.twig');
+        // // METHODE 1 : création du formulaire directement en controller
+        return $this->render('product_page/form-add.html.twig',['formBien' => $formBien->createView()]);
+        // METHODE 2
+        // return $this->renderForm('bien/form-add.html.twig', ['formBien' => $formBien]);
     }
 
 }
