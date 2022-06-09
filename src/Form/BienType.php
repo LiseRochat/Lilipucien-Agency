@@ -46,9 +46,9 @@ class BienType extends AbstractType
                     'placeholder' => 'Lyon 69001',
                 ],
             ])
-            ->add('save', SubmitType::class, [
-                    'label' => 'Envoyer'
-                ])
+            // ->add('save', SubmitType::class, [
+            //         'label' => 'Envoyer'
+            //     ])
         ;
     }
 

@@ -64,6 +64,7 @@ class ProductPageController extends AbstractController
 
         return $this->render('product_page/form-add.html.twig',[
             "form_title" => "Ajouter un bien",
+            "form_submit" => "Ajoutez",
             'formBien' => $formBien->createView()
         ]);
         // return $this->renderForm('bien/form-add.html.twig', ['formBien' => $formBien]);
@@ -96,6 +97,7 @@ class ProductPageController extends AbstractController
     
         return $this->render("product_page/form-add.html.twig", [
             "form_title" => "Modifier un bien",
+            "form_submit" => "Modifier",
             "formBien" => $formBien->createView(),
         ]);
     }

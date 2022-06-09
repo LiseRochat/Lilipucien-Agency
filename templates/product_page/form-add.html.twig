@@ -11,11 +11,11 @@
         {{form(formBien)}}
 
         {# METHODE 02 #}
-        {# {{form_start(formBien)}}
+        {{form_start(formBien)}}
             {{form_widget(formBien)}}
-           <input type="submit" value="Enregistrer">
+           <input type="submit" value="{{form_submit}}">
            <br>
-        {{form_end(formBien)}} #}
+        {{form_end(formBien)}}
 
     </div>
 {% endblock %}
