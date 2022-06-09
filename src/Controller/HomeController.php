@@ -19,4 +19,34 @@ class HomeController extends AbstractController
             'biens' => $biens 
         ]);
     }
+
+    #[Route('/rental', name: 'rental')]
+    public function rental(ManagerRegistry $doctrine): Response
+    {
+        //$biens = $doctrine->getRepository(Bien::class)->findAll();
+        $biens = $doctrine->getRepository(Bien::class)->findBy([], ['id' => 'DESC']);
+        return $this->render('home/rental.html.twig', [
+            'biens' => $biens 
+        ]);
+    }
+
+    #[Route('/sale', name: 'sale')]
+    public function sale(ManagerRegistry $doctrine): Response
+    {
+        //$biens = $doctrine->getRepository(Bien::class)->findAll();
+        $biens = $doctrine->getRepository(Bien::class)->findBy([], ['id' => 'DESC']);
+        return $this->render('home/sale.html.twig', [
+            'biens' => $biens 
+        ]);
+    }
+
+    #[Route('/holiday', name: 'holiday')]
+    public function holiday(ManagerRegistry $doctrine): Response
+    {
+        //$biens = $doctrine->getRepository(Bien::class)->findAll();
+        $biens = $doctrine->getRepository(Bien::class)->findBy([], ['id' => 'DESC']);
+        return $this->render('home/holiday.html.twig', [
+            'biens' => $biens 
+        ]);
+    }
 }

@@ -6,10 +6,19 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">A Propos</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion des biens</a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos Prestations</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ path('rental') }}">Location</a></li>
+                                <li><a class="dropdown-item" href="{{ path('sale') }}">Vente Immobilière</a></li>
+                                <li><a class="dropdown-item" href="{{ path('holiday') }}">Location Vacance</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administration</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a href="{{ path('add_product') }}" class="dropdown-item">Ajouter un bien</a></li>
-                                <li><a class="dropdown-item" href="#!">Bien Populaire</a></li>
+                                <li><a class="dropdown-item" href="#!">Mon Compte</a></li>
+                                <li><a class="dropdown-item" href="#!">Se Déconnecter</a></li>
                             </ul>
                         </li>
                     </ul>

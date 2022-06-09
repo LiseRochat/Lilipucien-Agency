@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Location de Vacances| Agence Lilipucien{% endblock %}
+{% block h1 %}Location de Vacances | Agence Lilipucien{% endblock %}
+{% block resume %} Choissisez le lieu de destination de votre prochaine vacance en fonction du bien où vous allez passer vos meilleurs nuits ! Tous les biens présents ici sont vérifié. Les contrats varient de la simple nuits a 4 semaines ! {% endblock %}
+{% block body %}
+    <nav aria-label="breadcrumb">
+  		<ol class="breadcrumb">
+    		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Location de Vacances</li>
+  		</ol>
+	</nav>
+{% endblock %}
