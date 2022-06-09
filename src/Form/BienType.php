@@ -3,11 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Bien;
+use App\Entity\Status;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 
@@ -46,9 +47,11 @@ class BienType extends AbstractType
                     'placeholder' => 'Lyon 69001',
                 ],
             ])
-            // ->add('save', SubmitType::class, [
-            //         'label' => 'Envoyer'
-            //     ])
+            ->add('status', EntityType::class, [
+                'required' => false,
+                'class' => Status::class,
+                'choice_label' => 'title'
+            ])
         ;
     }
 

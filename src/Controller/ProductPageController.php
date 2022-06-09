@@ -73,6 +73,7 @@ class ProductPageController extends AbstractController
     #[Route('/bien/edit/{id}', name: 'edit_product')]
     public function modifyProduct(Request $request, int $id): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
         // Etape 1 : on recupère le bien a modifier
         $bien = $entityManager->getRepository(Bien::class)->find($id);
         $bien->setUpdatedAt(new DateTimeImmutable()); //donne la date du jour
@@ -84,7 +85,6 @@ class ProductPageController extends AbstractController
         if($formBien->isSubmitted() && $formBien->isValid())
         {
             
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             // Ajouter un message pour le feedback, dans la variable de session 'flash'
