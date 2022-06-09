@@ -18,4 +18,23 @@ class StatusController extends AbstractController
             'status' => $status
         ]);
     }
+
+    #[Route('/status/add', name: 'app_status_add')]
+    public function add()
+    {
+
+    }
+
+    #[Route('/status/edit/{id}', name: 'app_status_edit')]
+    public function edit()
+    {
+        
+    }
+
+    #[Route('/status/delete/{id}', name: 'app_status_delete')]
+    public function delete()
+    {
+        
+    }
+
 }
