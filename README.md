@@ -28,11 +28,11 @@ website of a real estate agency with backoffice adminisstration.
 
 ### Visual
 Here is an overview of project. </br>
-<img src="public/assets/img/screenshot01.png" alt="screenshot result">
+<img src="assets/img/screenshot01.png" alt="screenshot result">
 <p align="right">(<a href="#top">back to top</a>)</p>
-<img src="public/assets/img/screenshot02.png" alt="screenshot result">
+<img src="assets/img/screenshot02.png" alt="screenshot result">
 <p align="right">(<a href="#top">back to top</a>)</p>
-<img src="public/assets/img/screenshot03.png" alt="screenshot result">
+<img src="assets/img/screenshot03.png" alt="screenshot result">
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ***
