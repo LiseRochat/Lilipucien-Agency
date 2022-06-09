@@ -26,8 +26,7 @@ class StatusType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Gardez mon logement durant deux semaines',
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
