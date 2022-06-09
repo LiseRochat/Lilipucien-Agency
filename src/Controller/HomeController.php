@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        //$biens = $doctrine->getRepository(Biens::class)->findAll();
+        //$biens = $doctrine->getRepository(Bien::class)->findAll();
         $biens = $doctrine->getRepository(Bien::class)->findBy([], ['id' => 'DESC']);
         return $this->render('home/index.html.twig', [
             'biens' => $biens 

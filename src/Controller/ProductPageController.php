@@ -15,11 +15,14 @@ class ProductPageController extends AbstractController
     #[Route('/bien/details/{id}', name: 'product')]
     public function details($id, ManagerRegistry $doctrine): Response
     {
+        // On recupère tous les biens catégorie biens populaire
+        $biens = $doctrine->getRepository(Bien::class)->findAll();
         // Récupère l'objet en fonction de l'@Id (généralement appelé $id)
         $bien = $doctrine->getRepository(Bien::class)->find($id);
         // vérifier $bien avec le var dump => if($bien){var dump}else{erreur}
         return $this->render('product_page/details.html.twig', [
-            'bien' => $bien
+            'bien' => $bien,
+            'biens' => $biens
         ]);
     }
 
@@ -75,6 +78,10 @@ class ProductPageController extends AbstractController
         if($formBien->isSubmitted() && $formBien->isValid())
         {
             $entityManager->flush();
+            // Ajouter un message pour le feedback, dans la variable de session 'flash'
+            $this->addFlash('success_add', 'Le bien a bien été modifié !');
+
+            return $this->redirectToRoute('app_home');
         }
     
         return $this->render("product_page/form-add.html.twig", [
