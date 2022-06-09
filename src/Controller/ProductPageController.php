@@ -73,8 +73,6 @@ class ProductPageController extends AbstractController
     #[Route('/bien/edit/{id}', name: 'edit_product')]
     public function modifyProduct(Request $request, int $id): Response
     {
-        
-    
         // Etape 1 : on recupère le bien a modifier
         $bien = $entityManager->getRepository(Bien::class)->find($id);
         $bien->setUpdatedAt(new DateTimeImmutable()); //donne la date du jour
