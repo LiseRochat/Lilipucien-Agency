@@ -3,6 +3,12 @@
 {% block body %}
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
+		{% for message in app.flashes('success_add') %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<strong>Félicitation </strong>{{ message }}
+		</div>
+		</br>
+		{% endfor %}
 		<a href="{{ path('add_product') }}" class="btn btn-warning">Ajouter un bien</a>
 			{# {{ dump(biens) }} #}
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
