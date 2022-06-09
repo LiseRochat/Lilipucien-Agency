@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Status;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,21 +21,69 @@ class StatusController extends AbstractController
     }
 
     #[Route('/status/add', name: 'app_status_add')]
-    public function add()
+    public function add(Request $request, ManagerRegistry $doctrine)
     {
+
+        $status = new Status();
+    
+        $formStatus = $this->createForm(StatusType::class, $status);
+        $formStatus->handleRequest($request);
+
+        if($formStatus->isSubmitted() && $formStatus->isValid()){
+
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($status);
+            $entityManager->flush();
+
+            $this->addFlash('success_add', 'Le status a été ajouté !');
+
+            return $this->redirectToRoute('app_status');
+        }
+
+        return $this->render('status/form-edit.html.twig',[
+            "form_title" => "Ajouter un status",
+            "form_submit" => "Ajoutez",
+            'formStatus' => $formStatus->createView()
+        ]);
 
     }
 
     #[Route('/status/edit/{id}', name: 'app_status_edit')]
-    public function edit()
+    public function edit(Request $request, int $id): Response
     {
-        
+        $entityManager = $this->getDoctrine()->getManager();
+        $status = $entityManager->getRepository(Status::class)->find($id);
+         
+        $formStatus = $this->createForm(BienType::class, $status);
+
+        $formStatus->handleRequest($request);
+        if($formStatus->isSubmitted() && $formStatus->isValid())
+        {
+            $entityManager->flush();
+
+            $this->addFlash('success_add', 'Le bien '.$status->getTitle(). ' a bien été modifié !');
+
+            return $this->redirectToRoute('app_status');
+        }
+    
+        return $this->render("status/form-edit.html.twig", [
+            "form_title" => "Modifier un status",
+            "form_submit" => "Modifier",
+            "formStatus" => $formStatus->createView(),
+        ]);
     }
 
     #[Route('/status/delete/{id}', name: 'app_status_delete')]
-    public function delete()
+    public function delete(int $id): Response
     {
-        
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $status = $entityManager->getRepository(Status::class)->find($id);
+        $entityManager->remove($status);
+        $entityManager->flush();
+
+        $this->addFlash('success_add', 'Le status '.$status->getTitre(). ' a bien été supprimez !');
+        return $this->redirectToRoute("app_status");
     }
 
 }
