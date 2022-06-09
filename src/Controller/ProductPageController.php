@@ -62,24 +62,34 @@ class ProductPageController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('product_page/form-add.html.twig',['formBien' => $formBien->createView()]);
+        return $this->render('product_page/form-add.html.twig',[
+            "form_title" => "Ajouter un bien",
+            'formBien' => $formBien->createView()
+        ]);
         // return $this->renderForm('bien/form-add.html.twig', ['formBien' => $formBien]);
     }
 
     #[Route('/bien/edit/{id}', name: 'edit_product')]
     public function modifyProduct(Request $request, int $id): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        
     
+        // Etape 1 : on recupère le bien a modifier
         $bien = $entityManager->getRepository(Bien::class)->find($id);
+        $bien->setUpdatedAt(new DateTimeImmutable()); //donne la date du jour
+
+        // Etape 2 : on créer le formulaire 
         $formBien = $this->createForm(BienType::class, $bien);
+
         $formBien->handleRequest($request);
-    
         if($formBien->isSubmitted() && $formBien->isValid())
         {
+            
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
+
             // Ajouter un message pour le feedback, dans la variable de session 'flash'
-            $this->addFlash('success_add', 'Le bien a bien été modifié !');
+            $this->addFlash('success_add', 'Le bien '.$bien->getTitre(). ' a bien été modifié !');
 
             return $this->redirectToRoute('app_home');
         }
@@ -94,10 +104,12 @@ class ProductPageController extends AbstractController
     public function deleteProduct(int $id): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
+
         $bien = $entityManager->getRepository(Bien::class)->find($id);
         $entityManager->remove($bien);
         $entityManager->flush();
 
+        $this->addFlash('success_add', 'Le bien '.$bien->getTitre(). ' a bien été supprimez !');
         return $this->redirectToRoute("app_home");
     }
 }
