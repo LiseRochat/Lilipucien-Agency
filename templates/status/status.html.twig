@@ -9,6 +9,10 @@
   		</ol>
 	</nav>
     <div class="container px-4 px-lg-5 my-5">
+        <a class="btn btn-success my-3" href="#">
+            <i class="bi bi-plus-circle"></i>
+                Ajouter un status
+        </a>
         <table class="table table-striped-columns">
             <thead>
                 <tr>
@@ -25,11 +29,11 @@
                     <td>{{ statusOne.title }}</td>
                     <td>{{ statusOne.description }}</td>
                     <td> 
-                        <a href="#">
+                        <a class="btn btn-secondary" href="#">
                             <i class="bi bi-pen"></i>
                                 Modifier le status
                         </a>
-                        <a href="#">
+                        <a class="btn btn-danger" href="#">
                             <i class="bi-trash me-1"></i>
                                 Supprimez le status
                         </a> 
