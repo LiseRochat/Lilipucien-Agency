@@ -7,6 +7,15 @@
 {% block body %}
     <div class="container">
         <h1>Formulaire d'ajout d'un bien</h1>
+        {# METHODE 01 #}
         {{form(formBien)}}
+
+        {# METHODE 02 #}
+        {# {{form_start(formBien)}}
+            {{form_widget(formBien)}}
+           <input type="submit" value="Enregistrer">
+           <br>
+        {{form_end(formBien)}} #}
+
     </div>
 {% endblock %}

@@ -12,6 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProductPageController extends AbstractController
 {
@@ -41,6 +42,9 @@ class ProductPageController extends AbstractController
         ->add('prix', IntegerType::class)
         ->add('description', TextAreaType::class)
         ->add('ville', TextType::class)
+        ->add('save', SubmitType::class, [
+            'label' => 'Envoyer'
+        ])
         ->getForm();
 
         // // METHODE 1 : création du formulaire directement en controller
