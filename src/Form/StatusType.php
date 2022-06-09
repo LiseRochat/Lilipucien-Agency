@@ -12,8 +12,20 @@ class StatusType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('description')
+            ->add('title', TypeTextType::class,  [
+                'required' => true,
+                'label' => 'NOm du status',
+                'attr' => [
+                    'placeholder' => 'Gardiennage',
+                ],
+            ])
+            ->add('description', TypeTextType::class,  [
+                'required' => false,
+                'label' => 'Description du status',
+                'attr' => [
+                    'placeholder' => 'Gardez mon logement durant deux semaines',
+                ],
+            ])
         ;
     }
 
