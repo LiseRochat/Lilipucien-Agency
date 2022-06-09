@@ -29,11 +29,11 @@
                     <td>{{ statusOne.title }}</td>
                     <td>{{ statusOne.description }}</td>
                     <td> 
-                        <a class="btn btn-secondary" href="{{ path('app_status_edit', {id : bien.id }) }}">
+                        <a class="btn btn-secondary" href="{{ path('app_status_edit', {id : statusOne.id }) }}">
                             <i class="bi bi-pen"></i>
                                 Modifier le status
                         </a>
-                        <a class="btn btn-danger" href="{{ path('app_status_delete', {id : bien.id }) }}">
+                        <a class="btn btn-danger" href="{{ path('app_status_delete', {id : statusOne.id }) }}">
                             <i class="bi-trash me-1"></i>
                                 Supprimez le status
                         </a> 

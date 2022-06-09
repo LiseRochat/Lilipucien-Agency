@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Status;
+use App\Form\StatusType;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,7 +55,7 @@ class StatusController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $status = $entityManager->getRepository(Status::class)->find($id);
          
-        $formStatus = $this->createForm(BienType::class, $status);
+        $formStatus = $this->createForm(StatusType::class, $status);
 
         $formStatus->handleRequest($request);
         if($formStatus->isSubmitted() && $formStatus->isValid())
