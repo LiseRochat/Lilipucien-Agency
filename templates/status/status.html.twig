@@ -8,4 +8,35 @@
     		<li class="breadcrumb-item active" aria-current="page">Accueil</li>
   		</ol>
 	</nav>
+    <div class="container px-4 px-lg-5 my-5">
+        <table class="table table-striped-columns">
+            <thead>
+                <tr>
+                    <th scope="col">n°</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for statusOne in status %}
+                <tr>
+                    <th scope="row">{{ statusOne.id }}</th>
+                    <td>{{ statusOne.title }}</td>
+                    <td>{{ statusOne.description }}</td>
+                    <td> 
+                        <a href="#">
+                            <i class="bi bi-pen"></i>
+                                Modifier le status
+                        </a>
+                        <a href="#">
+                            <i class="bi-trash me-1"></i>
+                                Supprimez le status
+                        </a> 
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
