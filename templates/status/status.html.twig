@@ -26,6 +26,7 @@
                     <th scope="col">n°</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Couleur</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                     <th scope="row">{{ statusOne.id }}</th>
                     <td>{{ statusOne.title }}</td>
                     <td>{{ statusOne.description }}</td>
+                    <td>{{ statusOne.color }}</td>
                     <td> 
                         <a class="btn btn-secondary my-1" href="{{ path('app_status_edit', {id : statusOne.id }) }}">
                             <i class="bi bi-pen"></i>
