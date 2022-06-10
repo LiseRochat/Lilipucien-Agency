@@ -11,7 +11,7 @@
 	    </br>
     {% endfor %}
     <div class="container">
-        <h1>Formulaire de contact<h1>
+        <h1>{{form_title}}<h1>
         {{form_start(formContact)}}
             {{form_widget(formContact)}}
             <input class = "btn btn-primary my-3"  type="submit" value="{{form_submit}}">
