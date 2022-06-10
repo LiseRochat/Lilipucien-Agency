@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BienRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BienRepository::class)]
@@ -33,6 +35,14 @@ class Bien
 
     #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'biens')]
     private $status;
+
+    #[ORM\OneToMany(mappedBy: 'bien', targetEntity: ImagesBien::class)]
+    private $imagesBiens;
+
+    public function __construct()
+    {
+        $this->imagesBiens = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +129,36 @@ class Bien
     public function setStatus(?Status $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ImagesBien>
+     */
+    public function getImagesBiens(): Collection
+    {
+        return $this->imagesBiens;
+    }
+
+    public function addImagesBien(ImagesBien $imagesBien): self
+    {
+        if (!$this->imagesBiens->contains($imagesBien)) {
+            $this->imagesBiens[] = $imagesBien;
+            $imagesBien->setBien($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImagesBien(ImagesBien $imagesBien): self
+    {
+        if ($this->imagesBiens->removeElement($imagesBien)) {
+            // set the owning side to null (unless already changed)
+            if ($imagesBien->getBien() === $this) {
+                $imagesBien->setBien(null);
+            }
+        }
 
         return $this;
     }
