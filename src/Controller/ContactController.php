@@ -26,8 +26,8 @@ class ContactController extends AbstractController
 
         // Etape03 : On verifie si le formulaire a été soumis
         $formContact->handleRequest($request);
-        if($formContact->isSubmitted() && $formContact->isValid()){
-
+        if($formContact->isSubmitted() && $formContact->isValid())
+        {
             // Etape3.1: On enregiste dans la BDD
             $entityManager = $doctrine->getManager();
             $entityManager->persist($contact);
