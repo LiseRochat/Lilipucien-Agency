@@ -13,7 +13,6 @@
 			{% for bien in biens %}
 				<div class="card m-3" style="width: 18rem;">
   					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Card image cap">
-					<div class="badge bg-{{bien.status.color|default('N.C')}} text-white position-absolute p-2" style="top: 0.5rem; right: 1.5rem">{{ bien.status.title|default('N.C') }}</div>
   					<div class="card-body">
     					<h5 class="card-title">{{ bien.titre }}</h5>
     					<p class="card-text text-truncate">{{ bien.description }}</p>
