@@ -8,10 +8,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImagesBienRepository::class)]
-/**
- * @ORM\Entity
- * @Vich\Uploadable
- */
+#[Vich\Uploadable] 
 class ImagesBien
 {
     #[ORM\Id]
@@ -25,7 +22,7 @@ class ImagesBien
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName", size="imageSize")
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName")
      * 
      * @var File|null
      */

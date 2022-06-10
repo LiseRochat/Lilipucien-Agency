@@ -31,7 +31,7 @@ class HomeController extends AbstractController
     #[Route('/sale', name: 'sale')]
     public function sale(ManagerRegistry $doctrine): Response
     { 
-        $biens = $doctrine->getRepository(Bien::class)->findBy(['status' => 2]);
+        $biens = $doctrine->getRepository(Bien::class)->findBy(['status' => 3]);
         return $this->render('home/sale.html.twig', [
             'biens' => $biens 
         ]);
@@ -40,7 +40,7 @@ class HomeController extends AbstractController
     #[Route('/holiday', name: 'holiday')]
     public function holiday(ManagerRegistry $doctrine): Response
     {
-        $biens = $doctrine->getRepository(Bien::class)->findBy(['status' => 3]);
+        $biens = $doctrine->getRepository(Bien::class)->findBy(['status' => 2]);
         return $this->render('home/holiday.html.twig', [
             'biens' => $biens 
         ]);

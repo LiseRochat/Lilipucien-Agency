@@ -16,7 +16,11 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="badge bg-{{bien.status.color|default('N.C')}} text-white position-absolute p-2" style="top: 0.5rem; right: 1.5rem">{{ bien.status.title|default('N.C') }}</div>
-                                <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="photos du bien immobilier" />
+                                {# {% if bien.imageName %}
+                                <img class="card-img-top mb-5 mb-md-0" src="{{ vich_uploader_asset(bien, 'imageFile') }}" alt="photos du bien immobilier" />
+                                {% else %} #}
+                                <img class="card-img-top" src="https://via.placeholder.com/80" alt="..." />
+                                {# {% endif %} #}
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
