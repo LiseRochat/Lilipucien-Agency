@@ -5,5 +5,8 @@
 {% block body %}
     <div class="container">
         <h1>Formulaire de contact<h1>
+        {{ form_start(formContact) }}
+            {{ form_widget(formContact) }}
+            <button type="submit" class="btn btn-info my-2"/>
     </div>
 {% endblock %}
