@@ -1,0 +1,9 @@
+<h2>Un utilisateur vous a envoyer un message depuis le site</h2>
+
+<h3>Information sur l'utilisateur</h3>
+<p>
+    Son Email: {{ contact.email }}
+    Son nom : {{ contact.nom|default('Nom Communiqué') }}
+    Son message : <br>
+    <p> {{ contact.message }} </p>
+</p>

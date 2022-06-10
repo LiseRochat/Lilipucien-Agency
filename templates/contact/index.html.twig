@@ -3,6 +3,11 @@
 {% block title %}Page Contact | Agence Lilipucien{% endblock %}
 
 {% block body %}
+{% for message in app.flashes('success_mail') %}
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					<strong>Félicitation </strong>{{ message }}
+				</div>
+				</br>
     <div class="container">
         <h1>Formulaire de contact<h1>
         {{ form_start(formContact) }}

@@ -1,18 +1,20 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Contact;
 use App\Form\ContactType;
-use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mailer\MailerInterface;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, EntityManager $doctrine): Response
+    public function index(Request $request, ManagerRegistry $doctrine, MailerInterface $mailer): Response
     {
         // Etape 01 : On ccrée le formulaire
         $contact = new Contact();
@@ -29,7 +31,21 @@ class ContactController extends AbstractController
             $entityManager = $doctrine->getManager();
             $entityManager->persist($contact);
             $entityManager->flush();
+
+            // Envoi3.2: On envoi l'email
+            $email = (new TemplatedEmail())
+                ->from($contact->getEmail())
+                ->to('contact@live.fr')
+                ->subject('Formulaire de Contact')
+                ->htmlTemplate('emails/contact.html.twig')
+                ->context([
+                    'contact' => $contact
+                ]);
+            $mailer->send($email);
+
+            $this->addFlash('succes_mail', 'Le mail a bien été envoyé !');
         }
+        
         return $this->render('contact/index.html.twig', [
             'formContact'=> $formContact->createView(),
         ]);
