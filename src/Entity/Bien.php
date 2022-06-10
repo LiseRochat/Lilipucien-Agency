@@ -37,16 +37,11 @@ class Bien
     #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'biens')]
     private $status;
 
-    #[Vich\UploadableField(mapping: 'product_image', fileNameProperty: 'imageName', size: 'imageSize')]
+    #[Vich\UploadableField(mapping: 'biens_img', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'string')]
     private ?string $imageName = null;
-
-    public function __construct()
-    {
-        $this->imagesBiens = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
