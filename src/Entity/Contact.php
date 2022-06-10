@@ -22,6 +22,9 @@ class Contact
     #[ORM\Column(type: 'text')]
     private $message;
 
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private $sentAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Contact
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getSentAt(): ?\DateTimeImmutable
+    {
+        return $this->sentAt;
+    }
+
+    public function setSentAt(?\DateTimeImmutable $sentAt): self
+    {
+        $this->sentAt = $sentAt;
 
         return $this;
     }
