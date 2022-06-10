@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\BienRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: BienRepository::class)]
+#[Vich\Uploadable] 
 class Bien
 {
     #[ORM\Id]
@@ -36,8 +37,11 @@ class Bien
     #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'biens')]
     private $status;
 
-    #[ORM\OneToMany(mappedBy: 'bien', targetEntity: ImagesBien::class)]
-    private $imagesBiens;
+    #[Vich\UploadableField(mapping: 'product_image', fileNameProperty: 'imageName', size: 'imageSize')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $imageName = null;
 
     public function __construct()
     {
@@ -134,32 +138,38 @@ class Bien
     }
 
     /**
-     * @return Collection<int, ImagesBien>
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-    public function getImagesBiens(): Collection
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->imagesBiens;
-    }
+        $this->imageFile = $imageFile;
 
-    public function addImagesBien(ImagesBien $imagesBien): self
-    {
-        if (!$this->imagesBiens->contains($imagesBien)) {
-            $this->imagesBiens[] = $imagesBien;
-            $imagesBien->setBien($this);
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
         }
-
-        return $this;
     }
 
-    public function removeImagesBien(ImagesBien $imagesBien): self
+    public function getImageFile(): ?File
     {
-        if ($this->imagesBiens->removeElement($imagesBien)) {
-            // set the owning side to null (unless already changed)
-            if ($imagesBien->getBien() === $this) {
-                $imagesBien->setBien(null);
-            }
-        }
-
-        return $this;
+        return $this->imageFile;
     }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
 }
