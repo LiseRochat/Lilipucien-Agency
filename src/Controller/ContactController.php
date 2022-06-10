@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,9 +18,9 @@ class ContactController extends AbstractController
         $contact->setSentAt(new \DateTimeImmutable('now'));
 
         // Etape02 : On crée le formulaire
-        $formContact = $this->createForm(, $contact);
+        $formContact = $this->createForm(ContactType::class, $contact);
         return $this->render('contact/index.html.twig', [
-            'controller_name' => 'ContactController',
+            'formContact'=> $formContact->createView(),
         ]);
     }
 }
