@@ -94,7 +94,7 @@ class StatusController extends AbstractController
         // Etape 03 : Methode flush()
         $entityManager->flush();
 
-        $this->addFlash('success_product', 'Le statu '.$status->getTitle(). ' a bien été supprimez !');
+        $this->addFlash('success_status', 'Le statu '.$status->getTitle(). ' a bien été supprimez !');
         return $this->redirectToRoute('app_status_index');
     }
 }
