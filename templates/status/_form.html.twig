@@ -1,4 +1,7 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="container">
+    <h2>{{formTitle}}</h2>
+    {{ form_start(formStatus) }}
+        {{ form_widget(formStatus) }}
+        <input class = "btn btn-primary my-3" type="submit" value="{{formSubmit}}"/>
+    {{ form_end(formStatus) }}
+</div>

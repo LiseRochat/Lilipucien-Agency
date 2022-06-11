@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Status{% endblock %}
+{% block title %}{{formTitle}}{% endblock %}
+
+{% block h1 %}{{formTitle}}{% endblock %}
+
+{% block resume %}La Fiche produit est importante. Elle donne envie aux visiteurs d'en savoir plus. Les photos doivent être de bonnes qualitées. La description doit être précise et eveiller la curiosité du visiteur. {% endblock %}
+
 
 {% block body %}
-    <h1>Create new Status</h1>
 
     {{ include('status/_form.html.twig') }}
 
-    <a href="{{ path('app_status_index') }}">back to list</a>
+    <div class="container">
+        <a class="btn btn-light my-3" href="{{ path('app_status_index') }}">
+            <i class="bi bi-arrow-left-circle"></i>
+            Retour à la liste
+        </a>
+    </div>
+
 {% endblock %}

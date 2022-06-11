@@ -2,16 +2,24 @@
 
 {% block title %}Status index{% endblock %}
 
-{% block body %}
-    <h1>Status index</h1>
+{% block h1 %}Status{% endblock %}
 
+{% block resume %}La Fiche produit est importante. Elle donne envie aux visiteurs d'en savoir plus. Les photos doivent être de bonnes qualitées. La description doit être précise et eveiller la curiosité du visiteur. {% endblock %}
+
+{% block body %}
+<div class="container">
+    <a class="btn btn-primary my-3" href="{{ path('app_status_new') }}">
+        <i class="bi bi-plus-circle"></i>
+        Ajouter un statu
+    </a>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
+                <th>Nom</th>
                 <th>Description</th>
-                <th>actions</th>
+                <th>Nombre de Produits<th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,18 +28,20 @@
                 <td>{{ status.id }}</td>
                 <td>{{ status.title }}</td>
                 <td>{{ status.description }}</td>
+                <td></td>
                 <td>
-                    <a href="{{ path('app_status_show', {'id': status.id}) }}">show</a>
-                    <a href="{{ path('app_status_edit', {'id': status.id}) }}">edit</a>
+                    <a class="btn btn-light my-3" href="{{ path('app_status_show', {'id': status.id}) }}">
+                        <i class="bi bi-search"></i>
+                        Voir
+                    </a>
+                    <a class="btn btn-dark my-3" href="{{ path('app_status_edit', {'id': status.id}) }}">
+                        <i class="bi bi-pen"></i>
+                        Modifier
+                    </a>
                 </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_status_new') }}">Create new</a>
+</div>
 {% endblock %}
