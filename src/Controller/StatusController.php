@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Status;
 use App\Form\StatusType;
 use App\Repository\StatusRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,7 +52,7 @@ class StatusController extends AbstractController
         ]);
     }
 
-    #[Route('/statu/{id}/modifier', name: 'app_status_edit', methods: ['GET', 'POST'])]
+    #[Route('/statu//modifier/{id}', name: 'app_status_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Status $status, StatusRepository $statusRepository): Response
     {
         $formStatus = $this->createForm(StatusType::class, $status);
@@ -71,13 +72,24 @@ class StatusController extends AbstractController
         ]);
     }
 
-    #[Route('/statu/{id}/supprimer', name: 'app_status_delete', methods: ['POST'])]
-    public function delete(Request $request, Status $status, StatusRepository $statusRepository): Response
+    #[Route('/statu/supprimer/{id}', name: 'app_status_delete')]
+    public function delete(int $id, ManagerRegistry $doctrine): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$status->getId(), $request->request->get('_token'))) {
-            $statusRepository->remove($status, true);
+        // Etape 01 : On recupère l'objet à supprimer
+        $entityManager = $doctrine->getManager();
+        $status = $entityManager->getRepository(Status::class)->find($id);
+
+        if(!$status)
+        {
+            $this->addFlash('error_status', 'Le produit n\'existe pas !');
         }
 
-        return $this->redirectToRoute('app_status_index', [], Response::HTTP_SEE_OTHER);
+        // Etape 02 : On fait appel a la methode remove du service entityManager
+        $entityManager->remove($status);
+        // Etape 03 : Methode flush()
+        $entityManager->flush();
+
+        $this->addFlash('success_product', 'Le statu '.$status->getTitle(). ' a bien été supprimez !');
+        return $this->redirectToRoute('app_status_index');
     }
 }

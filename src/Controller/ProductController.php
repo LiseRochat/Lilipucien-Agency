@@ -149,7 +149,7 @@ class ProductController extends AbstractController
         // Etape 03 : Methode flush()
         $entityManager->flush();
 
-        $this->addFlash('success_product', 'Le bien '.$product->getTitle(). ' a bien été supprimez !');
+        $this->addFlash('success_product', 'Le produit '.$product->getTitle(). ' a bien été supprimez !');
         return $this->redirectToRoute('app_home');
     }
 
