@@ -18,7 +18,7 @@
     </head>
     <body>
     <!-- Navigation-->
-    {% block navbar %}{% include 'includes/_navbar.html.twig' %}{% endblock %}
+   {{ render(path('app_nav'))}}
     <!-- Header-->
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">

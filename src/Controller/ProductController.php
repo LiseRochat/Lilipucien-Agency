@@ -36,11 +36,11 @@ class ProductController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/produits/loation', name: 'app_product_rental')]
+    #[Route('/produits/location', name: 'app_product_rental')]
     public function productRental(ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On recupère l'objet où le title correspond à 'location'
-        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'location']);
+        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'Location']);
         
         // Etape 02 : On recupère tous les produits possèdent l'identifiant status correspondant au title 'location'
         $products = $doctrine->getRepository(Products::class)->findBy(['status' => $rental]);
@@ -66,7 +66,7 @@ class ProductController extends AbstractController
     public function productSale(ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On recupère l'objet où le title correspond à 'vente'
-        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'vente']);
+        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'Vente']);
         
         // Etape 02 : On recupère tous les produits possèdent l'identifiant status correspondant au title 'location'
         $products = $doctrine->getRepository(Products::class)->findBy(['status' => $rental]);
@@ -92,7 +92,7 @@ class ProductController extends AbstractController
     public function productHolidays(ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On recupère l'objet où le title correspond à 'vacances'
-        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'vacances']);
+        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'Vacances']);
         
         // Etape 02 : On recupère tous les produits possèdent l'identifiant status correspondant au title 'location'
         $products = $doctrine->getRepository(Products::class)->findBy(['status' => $rental]);
@@ -118,6 +118,7 @@ class ProductController extends AbstractController
         $products = $doctrine->getRepository(Products::class)->findAll();
         // On recupère le produit sélectionné
         $product = $doctrine->getRepository(Products::class)->find($id);
+
         return $this->render('product/show.html.twig', [
             'products' => $products,
             'product' => $product,

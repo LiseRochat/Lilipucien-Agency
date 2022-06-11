@@ -7,6 +7,12 @@
 {% block resume %}La Fiche produit est importante. Elle donne envie aux visiteurs d'en savoir plus. Les photos doivent être de bonnes qualitées. La description doit être précise et eveiller la curiosité du visiteur. {% endblock %}
 
 {% block body %}
+	<nav aria-label="breadcrumb">
+  		<ol class="breadcrumb">
+    		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+        	<li class="breadcrumb-item active" aria-current="page">Ventes</li>
+  		</ol>
+	</nav>
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
 		{# ********** DEBUT Affichages des messages d'alertes ********** #}

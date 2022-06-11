@@ -7,7 +7,12 @@
 {% block resume %}La Fiche produit est importante. Elle donne envie aux visiteurs d'en savoir plus. Les photos doivent être de bonnes qualitées. La description doit être précise et eveiller la curiosité du visiteur. {% endblock %}
 
 {% block body %}
-
+    <nav aria-label="breadcrumb">
+  		<ol class="breadcrumb">
+    		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+        	<li class="breadcrumb-item active" aria-current="page">Ajouter un Produit</li>
+  		</ol>
+	</nav>
 {{ include('product/_form.html.twig') }}
 
 {% endblock %}

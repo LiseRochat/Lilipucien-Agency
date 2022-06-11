@@ -6,6 +6,14 @@
 {% block resume %}L'Agence Lilipucien possède l'esclusivité sur les produits qu'elle vous propose. Nous comme la pour vous aider a trouver le bien de vos rêves et vous accompagner dans vos projets d'achat de location ou de voyage.{% endblock %}
 
 {% block body %}
+    <nav aria-label="breadcrumb">
+  		<ol class="breadcrumb">
+    		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_product') }}">Nos Produits</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_product') }}">{{ product.status.title }}</a></li>
+        	<li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+  		</ol>
+	</nav>
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
