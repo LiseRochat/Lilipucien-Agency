@@ -55,7 +55,7 @@ class ProductType extends AbstractType
                 'required' => false,
                 'class' => Status::class,
                 'choice_label' => 'title',
-                'label' => 'Status du Produit',
+                'label' => 'Status du Produit',              
             ]);
     }
 

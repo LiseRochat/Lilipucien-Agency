@@ -4,12 +4,18 @@
 
 {% block h1 %}{{form_title}}{% endblock %}
 
-{% block resume %}La Fiche produit est importante. Elle donne envie aux visiteurs d'en savoir plus. Les photos doivent être de bonnes qualitées. La description doit être précise et eveiller la curiosité du visiteur. {% endblock %}
+{% block resume %}Autem pecudum observatum cum autem et deinceps circumspecta et coeperint trucidantur nec ubi et cum inertium cedunt reperiri tela grassatores quod terna nec nec edita reperiri exsertare iniquitati lacertos milites permissi ritu montium inertium quod bina crispare tela loci coeperint et observatum deinceps autem coeperint potuerint rem vehunt adsidue exsertare. {% endblock %}
 
 {% block body %}
 
     {{ include('product/_form.html.twig') }}
 
-    <a href="{{ path('app_product') }}">Retour à la liste</a>
-
+    <div class="container">
+        <a class="btn btn-light my-3" href="{{ path('app_product') }}">
+            <i class="bi bi-arrow-left-circle"></i>
+            Retour à la liste
+        </a>
+    </div>
 {% endblock %}
+
+                
