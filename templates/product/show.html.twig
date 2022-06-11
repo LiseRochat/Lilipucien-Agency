@@ -10,7 +10,7 @@
   		<ol class="breadcrumb">
     		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
             <li class="breadcrumb-item"><a href="{{ path('app_product') }}">Nos Produits</a></li>
-            {# <li class="breadcrumb-item"><a href="{{ path('app_status_products', {id : product.status }) }}) }}">{{ product.status.title }}</a></li> #}
+            <li class="breadcrumb-item"><a href="{{ path('app_status_products', {id : product.status.id}) }}">{{ product.status.title }}</a></li>
         	<li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
   		</ol>
 	</nav>
