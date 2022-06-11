@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use DateTimeImmutable;
 use App\Entity\Products;
 use App\Form\ProductType;
@@ -66,8 +65,8 @@ class ProductController extends AbstractController
         }
         
         return $this->render('product/form-product.html.twig', [
-            "form_title" => "Ajouter un produit",
-            "form_submit" => "Ajoutez",
+            'form_title' => 'Ajouter un produit',
+            'form_submit' => 'Ajoutez',
             'formProduct' => $formProduct->createView()
         ]);
     }
@@ -104,10 +103,10 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render("product/form-product.html.twig", [
-            "form_title" => "Modifier un produit",
-            "form_submit" => "Modifier",
-            "formProduct" => $formProduct->createView(),
+        return $this->render('product/form-product.html.twig', [
+            'form_title' => 'Modifier un produit',
+            'form_submit' => 'Modifier',
+            'formProduct' => $formProduct->createView(),
         ]);
     }
 
@@ -132,7 +131,7 @@ class ProductController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success_product', 'Le bien '.$product->getTitle(). ' a bien été supprimez !');
-        return $this->redirectToRoute("app_home");
+        return $this->redirectToRoute('app_home');
     }
 
 }
