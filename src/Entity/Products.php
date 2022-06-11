@@ -28,6 +28,21 @@ class Products
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private $updatedAt;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $city;
+
+    #[ORM\Column(type: 'integer')]
+    private $surface;
+
+    #[ORM\Column(type: 'integer')]
+    private $nb_garage;
+
+    #[ORM\Column(type: 'boolean',  nullable: true)]
+    private $cellar;
+
+    #[ORM\Column(type: 'integer')]
+    private $nb_bedroom;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +104,66 @@ class Products
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getSurface(): ?int
+    {
+        return $this->surface;
+    }
+
+    public function setSurface(int $surface): self
+    {
+        $this->surface = $surface;
+
+        return $this;
+    }
+
+    public function getNbGarage(): ?int
+    {
+        return $this->nb_garage;
+    }
+
+    public function setNbGarage(int $nb_garage): self
+    {
+        $this->nb_garage = $nb_garage;
+
+        return $this;
+    }
+
+    public function isCellar(): ?bool
+    {
+        return $this->cellar;
+    }
+
+    public function setCellar(bool $cellar): self
+    {
+        $this->cellar = $cellar;
+
+        return $this;
+    }
+
+    public function getNbBedroom(): ?int
+    {
+        return $this->nb_bedroom;
+    }
+
+    public function setNbBedroom(int $nb_bedroom): self
+    {
+        $this->nb_bedroom = $nb_bedroom;
 
         return $this;
     }

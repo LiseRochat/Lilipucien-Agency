@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProductType extends AbstractType
@@ -18,23 +19,35 @@ class ProductType extends AbstractType
             ->add('title', TextType::class, [
                 'required' => true,
                 'label' => 'Nom du produit',
-                'attr' => [
-                    'placeholder' => 'Le nom de votre produit'
-                ]
             ])
             ->add('price', NumberType::class, [
                 'required' => true,
                 'label' => 'Prix du produit',
-                'attr' => [
-                    'placeholder' => '50.6'
-                ]
             ])
             ->add('description', TextareaType::class, [
                 'required' => true,
                 'label' => 'Description du produit',
-                'attr' => [
-                    'placeholder' => 'Renseignez une description précise de votre produit.'
-                ]
+                
+            ])
+            ->add('city', TextType::class, [
+                'required' => true,
+                'label' => 'Ville du Produit',
+            ])
+            ->add('surface', NumberType::class, [
+                'required' => true,
+                'label' => 'Surface du Produit',
+            ])
+            ->add('nb_garage', NumberType::class, [
+                'required' => true,
+                'label' => 'Nombre de garage appartenant au produit',
+            ])
+            ->add('cellar', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Présence d\'une cave',
+            ])
+            ->add('nb_bedroom', NumberType::class, [
+                'required' => true,
+                'label' => 'Nombre de chambre',
             ]);
     }
 
