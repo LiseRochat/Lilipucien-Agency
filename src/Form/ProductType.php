@@ -2,9 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Status;
 use App\Entity\Products;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -48,6 +50,12 @@ class ProductType extends AbstractType
             ->add('nb_bedroom', NumberType::class, [
                 'required' => true,
                 'label' => 'Nombre de chambre',
+            ])
+            ->add('status', EntityType::class, [
+                'required' => false,
+                'class' => Status::class,
+                'choice_label' => 'title',
+                'label' => 'Status du Produit',
             ]);
     }
 
