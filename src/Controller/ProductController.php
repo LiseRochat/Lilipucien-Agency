@@ -86,7 +86,8 @@ class ProductController extends AbstractController
             $this->addFlash('error_product', 'Le produit n\'existe pas !');
         }
 
-        $product->setUpdatedAt(new DateTimeImmutable());
+        // Etape 01.1 : On initialise la date de mise a jours à la date d'aujourd'hui
+        $product->setUpdatedAt(new DateTimeImmutable('now'));
 
         $formProduct = $this->createForm(ProductType::class, $product);
 
