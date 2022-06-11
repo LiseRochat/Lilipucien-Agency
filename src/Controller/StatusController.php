@@ -12,15 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/statu')]
+#[Route('/status')]
 class StatusController extends AbstractController
 {
     /**
      * Methode permettant l'affichage de tous les status
      */
     #[Route('/', name: 'app_status_index')]
-    public function index(StatusRepository $statusRepository): Response
+    public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine): Response
     {
+        
         return $this->render('status/index.html.twig', [
             'statuses' => $statusRepository->findAll(),
         ]);
@@ -44,8 +45,7 @@ class StatusController extends AbstractController
     #[Route('/produits/{id}', name: 'app_status_products', methods: ['GET'])]
     public function productByStatu(Status $status, ManagerRegistry $doctrine): Response
     {
-        $id = $status->getId();
-        $products = $doctrine->getRepository(Products::class)->findBy( ['id' => $id],['id' => 'DESC']);
+        $products = $doctrine->getRepository(Products::class)->findBy( ['status' => $status->getId()],['id' => 'DESC']);
         return $this->render('status/show-by-status.html.twig', [
             'status' => $status,
             'products' => $products,
