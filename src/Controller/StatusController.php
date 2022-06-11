@@ -43,9 +43,9 @@ class StatusController extends AbstractController
      * Methode permettant l'affichage des produits en fonction de leurs status
      */
     #[Route('/produits/{id}', name: 'app_status_products', methods: ['GET'])]
-    public function productByStatu(Status $status, ManagerRegistry $doctrine): Response
+    public function productByStatu(Status $status, int $id, ManagerRegistry $doctrine): Response
     {
-        $products = $doctrine->getRepository(Products::class)->findBy( ['status' => $status->getId()],['id' => 'DESC']);
+        $products = $doctrine->getRepository(Products::class)->findBy( ['status' => $id],['id' => 'DESC']);
         return $this->render('status/show-by-status.html.twig', [
             'status' => $status,
             'products' => $products,
