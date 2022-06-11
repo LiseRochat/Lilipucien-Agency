@@ -20,7 +20,7 @@ class ProductController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/produits', name: 'app_product')]
+    #[Route('/', name: 'app_product')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $products = $doctrine->getRepository(Products::class)->findBy([], ['id' => 'DESC']);
