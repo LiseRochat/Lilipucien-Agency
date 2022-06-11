@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{form_title}}{% endblock %}
+
+{% block h1 %}{{form_title}}{% endblock %}
+
+{% block resume %}La Fiche produit est importante. Elle donne envie aux visiteurs d'en savoir plus. Les photos doivent être de bonnes qualitées. La description doit être précise et eveiller la curiosité du visiteur. {% endblock %}
+
+{% block body %}
+
+{{ include('product/_form.html.twig') }}
+
+{% endblock %}

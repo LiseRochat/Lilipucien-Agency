@@ -16,22 +16,16 @@
 					<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a
-						class="nav-link dropdown-toggle"
-						id="navbarDropdown"
-						href="#"
-						role="button"
-						data-bs-toggle="dropdown"
-						aria-expanded="false">Nos Produits</a>
+					<a class="nav-link dropdown-toggle" id="navbarDropdown" href="{{ path('app_product')}}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos Produits</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<li>
-							<a class="dropdown-item" href="">Catégorie 01</a>
+							<a class="dropdown-item" href="{{path('app_product_rental')}}">Location</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#!">Catégorie 01</a>
+							<a class="dropdown-item" href="{{ path('app_product_sale') }}">Vente</a>
 						</li>
 						<li>
-							<a class="dropdown-item" href="#!">Catégorie 01</a>
+							<a class="dropdown-item" href="{{ path('app_product_holidays') }}">Location Vacances</a>
 						</li>
 					</ul>
 				</li>

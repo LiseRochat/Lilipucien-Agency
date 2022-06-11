@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Produits en Location{% endblock %}
+
+{% block h1 %}Produits en Location{% endblock %}
+
+{% block resume %}La Fiche produit est importante. Elle donne envie aux visiteurs d'en savoir plus. Les photos doivent être de bonnes qualitées. La description doit être précise et eveiller la curiosité du visiteur. {% endblock %}
+
 {% block body %}
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
@@ -12,6 +18,11 @@
 		{% for message in app.flashes('error_product') %}
 			<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
 				<p class="text-center"><strong>Erreur : </strong>{{ message }}</p>
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error_no_product') %}
+			<div class="alert alert-info alert-dismissible fade show my-3" role="alert">
+				<p class="text-center"><strong>Oups : </strong>{{ message }}</p>
 			</div>
 		{% endfor %}
 		{# ********** FIN Affichages des messages d'alertes ********** #}
@@ -46,4 +57,6 @@
 			</div>
 		</div>
 	</section>
+
+
 {% endblock %}

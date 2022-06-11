@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/status')]
 class StatusController extends AbstractController
 {
-    #[Route('/', name: 'app_status_index', methods: ['GET'])]
+    #[Route('/status', name: 'app_status_index', methods: ['GET'])]
     public function index(StatusRepository $statusRepository): Response
     {
         return $this->render('status/index.html.twig', [

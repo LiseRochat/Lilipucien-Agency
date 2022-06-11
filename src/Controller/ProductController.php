@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Status;
 use DateTimeImmutable;
 use App\Entity\Products;
 use App\Form\ProductType;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +16,103 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     /**
+     * Methode page nos produits
+     *
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     */
+    #[Route('/produits', name: 'app_product')]
+    public function index(ManagerRegistry $doctrine): Response
+    {
+        $products = $doctrine->getRepository(Products::class)->findBy([], ['id' => 'DESC']);
+        return $this->render('home/index.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    /**
+     * Methode page produit proposé pour de la location
+     *
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     */
+    #[Route('/produits/loation', name: 'app_product_rental')]
+    public function productRental(ManagerRegistry $doctrine): Response
+    {
+        // Etape 01 : On recupère l'objet où le title correspond à 'location'
+        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'location']);
+        
+        // Etape 02 : On recupère tous les produits possèdent l'identifiant status correspondant au title 'location'
+        $products = $doctrine->getRepository(Products::class)->findBy(['status' => $rental]);
+        
+        // Etape 03 : Gestion du cas où il n'existe pas de produits en location
+        if(!$products)
+        {
+            $this->addFlash('error_no_product', 'Il n\'y as pas de produits en location pour le moment... Revenez vite ! :)');
+        }
+
+        return $this->render('home/rental.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    /**
+     * Methode page produit proposé pour de la vente
+     *
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     */
+    #[Route('/produits/vente', name: 'app_product_sale')]
+    public function productSale(ManagerRegistry $doctrine): Response
+    {
+        // Etape 01 : On recupère l'objet où le title correspond à 'vente'
+        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'vente']);
+        
+        // Etape 02 : On recupère tous les produits possèdent l'identifiant status correspondant au title 'location'
+        $products = $doctrine->getRepository(Products::class)->findBy(['status' => $rental]);
+        
+        // Etape 03 : Gestion du cas où il n'existe pas de produits en vente
+        if(!$products)
+        {
+            $this->addFlash('error_no_product', 'Il n\'y as pas de produits en vente pour le moment... Revenez vite ! :)');
+        }
+
+        return $this->render('home/sale.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    /**
+     * Methode page produit proposé pour de la location vacance, courte durée
+     *
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     */
+    #[Route('/produits/vacances', name: 'app_product_holidays')]
+    public function productHolidays(ManagerRegistry $doctrine): Response
+    {
+        // Etape 01 : On recupère l'objet où le title correspond à 'vacances'
+        $rental = $doctrine->getRepository(Status::class)->findBy( ['title' => 'vacances']);
+        
+        // Etape 02 : On recupère tous les produits possèdent l'identifiant status correspondant au title 'location'
+        $products = $doctrine->getRepository(Products::class)->findBy(['status' => $rental]);
+        
+        // Etape 03 : Gestion du cas où il n'existe pas de produits en location vacance
+        if(!$products)
+        {
+            $this->addFlash('error_no_product', 'Il n\'y as pas de produits en location vacances pour le moment... Revenez vite ! :)');
+        }
+
+        return $this->render('home/holidays.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    /**
      * Methode permettant l'affichage du produit en fonction de son id 
      */
-    #[Route('/produits/details/{id}', name: 'app_product')]
-    public function index(int $id, ManagerRegistry $doctrine): Response
+    #[Route('/produits/details/{id}', name: 'app_product_details')]
+    public function productDetails(int $id, ManagerRegistry $doctrine): Response
     {
         // On recupère tous les produits
         $products = $doctrine->getRepository(Products::class)->findAll();
@@ -64,7 +159,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
         
-        return $this->render('product/form-product.html.twig', [
+        return $this->render('product/new.html.twig', [
             'form_title' => 'Ajouter un produit',
             'form_submit' => 'Ajoutez',
             'formProduct' => $formProduct->createView()
@@ -104,7 +199,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('product/form-product.html.twig', [
+        return $this->render('product/edit.html.twig', [
             'form_title' => 'Modifier un produit',
             'form_submit' => 'Modifier',
             'formProduct' => $formProduct->createView(),
