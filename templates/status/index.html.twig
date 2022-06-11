@@ -50,6 +50,10 @@
                         <i class="bi bi-pen"></i>
                         Modifier
                     </a>
+                    <a class="btn btn-danger my-3" href="{{ path('app_status_delete', {'id': status.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer le status?')">
+                        <i class="bi-trash me-1"></i>
+                        Supprimer
+                    </a>
                 </td>
             </tr>
         {% endfor %}
