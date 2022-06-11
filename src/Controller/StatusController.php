@@ -3,18 +3,22 @@
 namespace App\Controller;
 
 use App\Entity\Status;
+use App\Entity\Products;
 use App\Form\StatusType;
 use App\Repository\StatusRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/status')]
+#[Route('/statu')]
 class StatusController extends AbstractController
 {
-    #[Route('/statu', name: 'app_status_index', methods: ['GET'])]
+    /**
+     * Methode permettant l'affichage de tous les status
+     */
+    #[Route('/statu', name: 'app_status_index')]
     public function index(StatusRepository $statusRepository): Response
     {
         return $this->render('status/index.html.twig', [
@@ -22,7 +26,39 @@ class StatusController extends AbstractController
         ]);
     }
 
-    #[Route('/statu/ajouter', name: 'app_status_new', methods: ['GET', 'POST'])]
+    /**
+     * Methode permettant l'affichage du detail du statu
+     */
+    #[Route('/details/{id}', name: 'app_status_show', methods: ['GET'])]
+    public function show(Status $status): Response
+    {
+        
+        return $this->render('status/show.html.twig', [
+            'status' => $status,
+        ]);
+    }
+
+    /**
+     * Methode permettant l'affichage des produits en fonction de leurs status
+     */
+    #[Route('/produits/{id}', name: 'app_status_products', methods: ['GET'])]
+    public function productByStatu(int $id, Status $status, ManagerRegistry $doctrine): Response
+    {
+        $products = $doctrine->getRepository(Products::class)->findBy( ['id' => $id]);
+        return $this->render('status/show-by-status.html.twig', [
+            'status' => $status,
+            'products' => $products,
+        ]);
+    }
+
+    /**
+     * Methode permettant l'ajout d'un statu
+     *
+     * @param Request $request
+     * @param StatusRepository $statusRepository
+     * @return Response
+     */
+    #[Route('/ajouter', name: 'app_status_new', methods: ['GET', 'POST'])]
     public function new(Request $request, StatusRepository $statusRepository): Response
     {
         $status = new Status();
@@ -31,7 +67,6 @@ class StatusController extends AbstractController
 
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             $statusRepository->add($status, true);
-
 
             $this->addFlash('success_status', 'Le statu '.$status->getTitle().' à été ajouté !');
 
@@ -46,16 +81,10 @@ class StatusController extends AbstractController
         ]);
     }
 
-    #[Route('/statu/details/{id}', name: 'app_status_show', methods: ['GET'])]
-    public function show(Status $status): Response
-    {
-        
-        return $this->render('status/show.html.twig', [
-            'status' => $status,
-        ]);
-    }
-
-    #[Route('/statu//modifier/{id}', name: 'app_status_edit', methods: ['GET', 'POST'])]
+    /**
+     * Methode permettant la modification d'un statu
+     */
+    #[Route('/modifier/{id}', name: 'app_status_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Status $status, StatusRepository $statusRepository): Response
     {
         $formStatus = $this->createForm(StatusType::class, $status);
@@ -77,7 +106,10 @@ class StatusController extends AbstractController
         ]);
     }
 
-    #[Route('/statu/supprimer/{id}', name: 'app_status_delete')]
+    /**
+     * Methode permettant la supression d'un statu
+     */
+    #[Route('/supprimer/{id}', name: 'app_status_delete')]
     public function delete(int $id, ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On recupère l'objet à supprimer

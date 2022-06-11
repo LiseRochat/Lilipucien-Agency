@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\Status;
 use DateTimeImmutable;
 use App\Entity\Products;
 use App\Form\ProductType;
@@ -12,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+#[Route('/produits')]
 class ProductController extends AbstractController
 {
     /**
@@ -28,12 +28,11 @@ class ProductController extends AbstractController
             'products' => $products
         ]);
     }
-
     
     /**
      * Methode permettant l'affichage du produit en fonction de son id 
      */
-    #[Route('/produits/details/{id}', name: 'app_product_details',  methods: ['GET'])]
+    #[Route('/details/{id}', name: 'app_product_details',  methods: ['GET'])]
     public function productDetails(int $id, ManagerRegistry $doctrine): Response
     {
         // On recupère tous les produits
@@ -54,7 +53,7 @@ class ProductController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/produits/ajouter', name: 'app_product_add',  methods: ['GET', 'POST'])]
+    #[Route('/ajouter', name: 'app_product_add',  methods: ['GET', 'POST'])]
     public function productAdd(Request $request, ManagerRegistry $doctrine)
     {
         // On instancie notre objet produit
@@ -92,7 +91,7 @@ class ProductController extends AbstractController
     /**
      * Methode permettant la modification d'un produit
      */
-    #[Route('/produits/modifier/{id}', name: 'app_product_edit',  methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}', name: 'app_product_edit',  methods: ['GET', 'POST'])]
     public function productEdit(int $id, Request $request, ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On récupère notre objet
@@ -132,7 +131,7 @@ class ProductController extends AbstractController
     /**
      * Methode permettant la supression d'un produit
      */
-    #[Route('/product/suprimer/{id}', name: 'app_product_delete')]
+    #[Route('/suprimer/{id}', name: 'app_product_delete')]
     public function productDelete(int $id, ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On recupère l'objet à supprimer

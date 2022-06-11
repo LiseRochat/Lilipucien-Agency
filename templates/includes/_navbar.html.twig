@@ -20,7 +20,7 @@
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 					{% for status in statuses %}
 						<li>
-							<a class="dropdown-item" href="{{ path('app_status_show', {'id': status.id}) }}">{{ status.title }}</a>
+							<a class="dropdown-item" href="{{ path('app_status_products', {'id': status.id}) }}">{{ status.title }}</a>
 						</li>
 					{% endfor %}
 					</ul>
