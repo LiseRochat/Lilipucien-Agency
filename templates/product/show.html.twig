@@ -57,12 +57,43 @@
                     </div>
                     </div>
                 </div>
+            </div> 
+        </section>
+        <section>
+            <div class="container">
+                <h2>Caractéristiques du Produits</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped-columns ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ville</th>
+                                <th scope="col">Surface</th>
+                                <th scope="col">Nombre de garage</th>
+                                <th scope="col">Cave</th>
+                                <th scope="col">Nombre de Chambre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ product.city }}</td>
+                                <td>{{ product.surface }}</td>
+                                <td>{{ product.nbGarage }}</td>
+                                {% if product.cellar == null %}
+                                    <td>Non</td>
+                                {% else %}
+                                    <td>Non</td>
+                                {% endif %}
+                                <td>{{ product.nbBedroom }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Autres Biens disponibles</h2>
+                <h3 class="fw-bolder mb-4">Autres Biens disponibles</h3>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 {% for product in products %}
                     <div class="col mb-5">
@@ -81,7 +112,7 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a  class="btn btn-light" href="#">
+                                    <a  class="btn btn-light" href="{{ path('app_product', {id : product.id }) }}">
                                         <i class="bi bi-search"></i>
                                         Voir le bien
                                     </a>
