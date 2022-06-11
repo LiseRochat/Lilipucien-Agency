@@ -33,7 +33,7 @@ class ProductController extends AbstractController
     /**
      * Methode permettant l'affichage du produit en fonction de son id 
      */
-    #[Route('/produits/details/{id}', name: 'app_product_details')]
+    #[Route('/produits/details/{id}', name: 'app_product_details',  methods: ['GET'])]
     public function productDetails(int $id, ManagerRegistry $doctrine): Response
     {
         // On recupère tous les produits
@@ -54,7 +54,7 @@ class ProductController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/produits/ajouter', name: 'app_product_add')]
+    #[Route('/produits/ajouter', name: 'app_product_add',  methods: ['GET', 'POST'])]
     public function productAdd(Request $request, ManagerRegistry $doctrine)
     {
         // On instancie notre objet produit
@@ -92,7 +92,7 @@ class ProductController extends AbstractController
     /**
      * Methode permettant la modification d'un produit
      */
-    #[Route('/produits/modifier/{id}', name: 'app_product_edit')]
+    #[Route('/produits/modifier/{id}', name: 'app_product_edit',  methods: ['GET', 'POST'])]
     public function productEdit(int $id, Request $request, ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On récupère notre objet
