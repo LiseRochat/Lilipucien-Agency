@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ bien.titre }}{% endblock %}
-{% block body %}
 
-    <nav aria-label="breadcrumb">
-  		<ol class="breadcrumb">
-    		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ bien.titre }}</li>
-  		</ol>
-	</nav>
+{% block title %}Nos Produits | Agence Lilipucien{% endblock %}
+{% block h1 %}Nos Produits | Agence Lilipucien{% endblock %}
+
+{% block resume %}L'Agence Lilipucien possède l'esclusivité sur les produits qu'elle vous propose. Nous comme la pour vous aider a trouver le bien de vos rêves et vous accompagner dans vos projets d'achat de location ou de voyage.{% endblock %}
+
+{% block body %}
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
@@ -15,12 +13,9 @@
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <div class="badge bg-{{bien.status.color|default('N.C')}} text-white position-absolute p-2" style="top: 0.5rem; right: 1.5rem">{{ bien.status.title|default('N.C') }}</div>
-                                {% if bien.imageName %}
-                                <img class="card-img-top mb-5 mb-md-0" src="{{ vich_uploader_asset(bien, 'imageFile') }}" alt="photos du bien immobilier" />
-                                {% else %}
+                                <div class="badge bg-primary text-white position-absolute p-2" style="top: 0.5rem; right: 1.5rem">N.C</div>
                                 <img class="card-img-top" src="https://via.placeholder.com/80" alt="..." />
-                                {% endif %}
+                             
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -35,12 +30,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="small mb-1">Agence Lilipucien</div>
-                        <h1 class="display-5 fw-bolder">{{ bien.titre }}</h1>
+                        <h1 class="display-5 fw-bolder">{{ product.title }}</h1>
                         <div class="fs-5 mb-5">
-                            <span>{{bien.ville}} |</span>
-                            <span>{{ bien.prix|number_format(0, ',', ' ') }} € </span>
+                            <span>{{ product.price }} €</span>
+                            <span>{{ product.createdAt|date("d/m/Y à H:i:s")}}</span>
                         </div>
-                        <p class="lead">{{ bien.description }}</p>
+                        <p class="lead">{{ product.description }}</p>
                         <div class="d-flex">
                             <a class="btn btn-outline-dark flex-shrink-0" href="{{ path('app_home') }}">
                                 <i class="bi bi-house-door-fill"></i>
@@ -49,13 +44,13 @@
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 							<div class="text-center">
-								<a class="btn btn-secondary" href="{{ path('edit_product', {id : bien.id }) }}">
+								<a class="btn btn-dark" href="{{ path('app_product_edit', {id : product.id }) }}">
                                     <i class="bi bi-pen"></i>
-                                    Modifier le bien
+                                    Modifier le produit
                                 </a>
-								<a class="btn btn-danger" href="{{ path('delete_product', {id : bien.id }) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce bien ?')">
+								<a class="btn btn-light" href="{{ path('app_product_delete', {id : product.id }) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer le produit ?')">
                                     <i class="bi-trash me-1"></i>
-                                    Supprimez le bien
+                                    Supprimez le produit
                                 </a>
 							</div>
 						</div>
@@ -69,7 +64,7 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Autres Biens disponibles</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                {% for bien in biens %}
+                {% for product in products %}
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
@@ -78,17 +73,15 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ bien.titre }}</h5>
-                                    <!-- Product reviews-->
-                                    <p>{{bien.ville}}</p>
+                                    <h5 class="fw-bolder">{{product.title}}</h5>
                                     <!-- Product price-->
-                                    {{ bien.prix|number_format(0, ',', ' ') }} <span>&#8364;</span></li>
+                                    {{product.price}}<span>&#8364;</span></li>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a  class="btn btn-light" href="{{ path('product', {id : bien.id }) }}">
+                                    <a  class="btn btn-light" href="#">
                                         <i class="bi bi-search"></i>
                                         Voir le bien
                                     </a>
@@ -96,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                {%  endfor %}
+                {% endfor %}
                 </div>
             </div>
         </section>

@@ -1,46 +1,48 @@
 {% extends 'base.html.twig' %}
-{% block title %}Nos Biens Immobiliers | Agence Lilipucien{% endblock %}
+
 {% block body %}
-	<nav aria-label="breadcrumb">
-  		<ol class="breadcrumb">
-    		<li class="breadcrumb-item active" aria-current="page">Accueil</li>
-  		</ol>
-	</nav>
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
-			{% for message in app.flashes('success_add') %}
-				<div class="alert alert-warning alert-dismissible fade show" role="alert">
-					<strong>Félicitation </strong>{{ message }}
-				</div>
-				</br>
-			{% endfor %}
+		{# ********** DEBUT Affichages des messages d'alertes ********** #}
+		{% for message in app.flashes('success_product') %}
+			<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+				<strong>Félicitation </strong>{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('error_product') %}
+			<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+				<strong>Erreur : </strong>{{ message }}
+			</div>
+		{% endfor %}
+		{# ********** FIN Affichages des messages d'alertes ********** #}
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			{% for bien in biens %}
-				<div class="card m-3" style="width: 18rem;">
-					<div class="badge bg-{{bien.status.color|default('N.C')}} text-white position-absolute p-2" style="top: 0.5rem; right: 1.5rem">{{ bien.status.title|default('N.C') }}</div>
-  					<img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Card image cap">
-  					<div class="card-body">
-    					<h5 class="card-title">{{ bien.titre }}</h5>
-    					<p class="card-text text-truncate">{{ bien.description }}</p>
-  					</div>
-  					<ul class="list-group list-group-flush">
-			  			<li class="list-group-item">{{ bien.prix|number_format(0, ',', ' ') }} <span>&#8364;</span></li>
-    					<li class="list-group-item">Créé le {{ bien.createdAt|date("d/m/Y à H:i:s") }}</li>
-  					</ul>
-  					<div class="card-body">
-    					<a  href="{{ path('product', {id : bien.id }) }}">
-							<i class="bi bi-search"></i>
-							Voir le bien
-						</a>
+			{% for product in products %}
+				<div class="col mb-5">
+					<div class="card h-100">
+						<!-- Sale badge-->
+						<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+						<!-- Product image-->
+						<img
+						class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+						<!-- Product details-->
+						<div class="card-body p-4">
+							<div
+								class="text-center">
+								<!-- Product name-->
+								<h5 class="fw-bolder">{{ product.title }}</h5>
+								<!-- Product price-->
+								<span class="text-muted text-decoration-line-through">{{ product.price }} &#8364;</span>
+							</div>
+						</div>
+						<!-- Product actions-->
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto" href="{{ path('app_product', {id : product.id }) }}">Voire le produit</a>
+							</div>
+						</div>
 					</div>
-					<div class="card-body">
-    					<a  href="{{ path('delete_product', {id : bien.id }) }}"  onclick="return confirm('Etes-vous sûr de vouloir supprimer ce bien ?')">
-							<i class="bi-trash me-1"></i>
-							Supprimez le bien
-						</a>
-  					</div>
 				</div>
-			{% endfor %}
+				{% endfor %}
 			</div>
 		</div>
 	</section>
