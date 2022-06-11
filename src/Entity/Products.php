@@ -43,6 +43,9 @@ class Products
     #[ORM\Column(type: 'integer')]
     private $nb_bedroom;
 
+    #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'products')]
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -164,6 +167,18 @@ class Products
     public function setNbBedroom(int $nb_bedroom): self
     {
         $this->nb_bedroom = $nb_bedroom;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
