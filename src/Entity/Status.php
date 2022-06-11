@@ -15,21 +15,18 @@ class Status
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $description;
 
-    #[ORM\OneToMany(mappedBy: 'status', targetEntity: Bien::class)]
-    private $biens;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $color;
+    #[ORM\OneToMany(mappedBy: 'status', targetEntity: Products::class)]
+    private $products;
 
     public function __construct()
     {
-        $this->biens = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,7 +39,7 @@ class Status
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -62,43 +59,31 @@ class Status
     }
 
     /**
-     * @return Collection<int, Bien>
+     * @return Collection<int, Products>
      */
-    public function getBiens(): Collection
+    public function getProducts(): Collection
     {
-        return $this->biens;
+        return $this->products;
     }
 
-    public function addBien(Bien $bien): self
+    public function addProduct(Products $product): self
     {
-        if (!$this->biens->contains($bien)) {
-            $this->biens[] = $bien;
-            $bien->setStatus($this);
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setStatus($this);
         }
 
         return $this;
     }
 
-    public function removeBien(Bien $bien): self
+    public function removeProduct(Products $product): self
     {
-        if ($this->biens->removeElement($bien)) {
+        if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($bien->getStatus() === $this) {
-                $bien->setStatus(null);
+            if ($product->getStatus() === $this) {
+                $product->setStatus(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(string $color): self
-    {
-        $this->color = $color;
 
         return $this;
     }

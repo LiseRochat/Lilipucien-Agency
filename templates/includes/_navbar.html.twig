@@ -1,36 +1,68 @@
- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">A Propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ path('app_contact') }}">Contact</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nos Prestations</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ path('rental') }}">Location</a></li>
-                                <li><a class="dropdown-item" href="{{ path('sale') }}">Vente Immobilière</a></li>
-                                <li><a class="dropdown-item" href="{{ path('holiday') }}">Location Vacance</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administration</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a href="{{ path('add_product') }}" class="dropdown-item">Ajouter un bien</a></li>
-                                <li><a href="{{ path('app_status') }}" class="dropdown-item">Configuration des status</a></li>
-                                <li><a class="dropdown-item" href="#!">Mon Compte</a></li>
-                                <li><a class="dropdown-item" href="#!">Se Déconnecter</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container px-4 px-lg-5">
+		<button
+			class="navbar-toggler"
+			type="button"
+			data-bs-toggle="collapse"
+			data-bs-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent"
+			aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle"
+						id="navbarDropdown"
+						href="#"
+						role="button"
+						data-bs-toggle="dropdown"
+						aria-expanded="false">Nos Produits</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" href="">Catégorie 01</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="#!">Catégorie 01</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="#!">Catégorie 01</a>
+						</li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown">
+					<a
+						class="nav-link dropdown-toggle"
+						id="navbarDropdown"
+						href="#"
+						role="button"
+						data-bs-toggle="dropdown"
+						aria-expanded="false">Administration</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<li>
+							<a class="dropdown-item" href="{{ path('app_product_add') }}">Ajouter un produit</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="#!">Mon Compte</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="#!">Deconnexion</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<form class="d-flex">
+				<button class="btn btn-outline-dark" type="submit">
+					<i class="bi-cart-fill me-1"></i>
+					Cart
+					<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+				</button>
+			</form>
+		</div>
+	</div>
+</nav>
