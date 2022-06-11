@@ -6,11 +6,13 @@ use App\Entity\Status;
 use App\Entity\Products;
 use App\Form\StatusType;
 use App\Repository\StatusRepository;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Length;
 
 #[Route('/status')]
 class StatusController extends AbstractController
@@ -21,9 +23,19 @@ class StatusController extends AbstractController
     #[Route('/', name: 'app_status_index')]
     public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine): Response
     {
-        
+        // Etape 01 : On récupère tous les status
+        $statuses = $statusRepository->findAll();
+
+        // Etape 02 : On parcour le tableau
+        for($i = 0; $i < count($statuses); $i++){
+
+            // Etape 03 : On recupère dans un tableau tous les produits possédant le status_id à l'id status
+            $products[$i] = $doctrine->getRepository(Products::class)->findBy(['status' => $statuses[$i]]);
+        } 
+
         return $this->render('status/index.html.twig', [
-            'statuses' => $statusRepository->findAll(),
+            'statuses' => $statuses,
+            'products' => $products,
         ]);
     }
 
@@ -33,7 +45,6 @@ class StatusController extends AbstractController
     #[Route('/details/{id}', name: 'app_status_show', methods: ['GET'])]
     public function show(Status $status): Response
     {
-        
         return $this->render('status/show.html.twig', [
             'status' => $status,
         ]);
@@ -45,7 +56,9 @@ class StatusController extends AbstractController
     #[Route('/produits/{id}', name: 'app_status_products', methods: ['GET'])]
     public function productByStatu(Status $status, int $id, ManagerRegistry $doctrine): Response
     {
+        // Etape 01: On recupère les produits où le status_id est égale à l'identifiant du statu passé dans l'URL
         $products = $doctrine->getRepository(Products::class)->findBy( ['status' => $id],['id' => 'DESC']);
+
         return $this->render('status/show-by-status.html.twig', [
             'status' => $status,
             'products' => $products,

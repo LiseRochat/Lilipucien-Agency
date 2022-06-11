@@ -24,6 +24,9 @@
         <i class="bi bi-plus-circle"></i>
         Ajouter un statu
     </a>
+    {{dump(statuses)}}
+    {{dump(products)}}
+    {{products[0]|length}}
     <table class="table">
         <thead>
             <tr>
@@ -40,7 +43,9 @@
                 <td>{{ status.id }}</td>
                 <td>{{ status.title }}</td>
                 <td>{{ status.description }}</td>
-                <td></td>
+                
+                <td>{% for product in products %}{{ product|length }}{% endfor %}</td>
+                
                 <td>
                     <a class="btn btn-light my-3" href="{{ path('app_status_show', {'id': status.id}) }}">
                         <i class="bi bi-search"></i>
