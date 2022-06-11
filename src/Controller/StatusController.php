@@ -32,6 +32,9 @@ class StatusController extends AbstractController
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             $statusRepository->add($status, true);
 
+
+            $this->addFlash('success_status', 'Le statu '.$status->getTitle().' à été ajouté !');
+
             return $this->redirectToRoute('app_status_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -61,6 +64,8 @@ class StatusController extends AbstractController
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {
             $statusRepository->add($status, true);
 
+            $this->addFlash('success_status', 'Le statu '.$status->getTitle().' à été modifié !');
+
             return $this->redirectToRoute('app_status_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -81,7 +86,7 @@ class StatusController extends AbstractController
 
         if(!$status)
         {
-            $this->addFlash('error_status', 'Le produit n\'existe pas !');
+            $this->addFlash('error_status', 'Le status n\'existe pas !');
         }
 
         // Etape 02 : On fait appel a la methode remove du service entityManager

@@ -8,6 +8,18 @@
 
 {% block body %}
 <div class="container">
+{# ********** DEBUT Affichages des messages d'alertes ********** #}
+	{% for message in app.flashes('success_status') %}
+		<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+			<p class="text-center"><strong>Félicitation </strong>{{ message }}</p>
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error_status') %}
+		<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+			<p class="text-center"><strong>Erreur : </strong>{{ message }}</p>
+		</div>
+	{% endfor %}
+	{# ********** FIN Affichages des messages d'alertes ********** #}
     <a class="btn btn-primary my-3" href="{{ path('app_status_new') }}">
         <i class="bi bi-plus-circle"></i>
         Ajouter un statu
