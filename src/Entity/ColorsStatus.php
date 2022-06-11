@@ -19,6 +19,9 @@ class ColorsStatus
     #[ORM\Column(type: 'string', length: 255)]
     private $codeBootstrap;
 
+    #[ORM\OneToOne(mappedBy: 'color', targetEntity: Status::class, cascade: ['persist', 'remove'])]
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,28 @@ class ColorsStatus
     public function setCodeBootstrap(string $codeBootstrap): self
     {
         $this->codeBootstrap = $codeBootstrap;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($status === null && $this->status !== null) {
+            $this->status->setColor(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($status !== null && $status->getColor() !== $this) {
+            $status->setColor($this);
+        }
+
+        $this->status = $status;
 
         return $this;
     }

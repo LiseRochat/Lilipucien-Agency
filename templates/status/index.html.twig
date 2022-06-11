@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Status index{% endblock %}
+
+{% block h1 %}Status{% endblock %}
+
+{% block resume %}Autem pecudum observatum cum autem et deinceps circumspecta et coeperint trucidantur nec ubi et cum inertium cedunt reperiri tela grassatores quod terna nec nec edita reperiri exsertare iniquitati lacertos milites permissi ritu montium inertium quod bina crispare tela loci coeperint et observatum deinceps autem coeperint potuerint rem vehunt adsidue exsertare. {% endblock %}
+
+{% block body %}
+<div class="container">
+{# ********** DEBUT Affichages des messages d'alertes ********** #}
+	{% for message in app.flashes('success_status') %}
+		<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+			<p class="text-center"><strong>Félicitation </strong>{{ message }}</p>
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('error_status') %}
+		<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+			<p class="text-center"><strong>Erreur : </strong>{{ message }}</p>
+		</div>
+	{% endfor %}
+	{# ********** FIN Affichages des messages d'alertes ********** #}
+    <a class="btn btn-primary my-3" href="{{ path('app_status_new') }}">
+        <i class="bi bi-plus-circle"></i>
+        Ajouter un statu
+    </a>
+    {{dump(statuses)}}
+    {{dump(products)}}
+    {{products[0]|length}}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Nombre de Produits<th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for status in statuses %}
+            <tr>
+                <td>{{ status.id }}</td>
+                <td>{{ status.title }}</td>
+                <td>{{ status.description }}</td>
+                
+                <td>{% for product in products %}{{ product|length }}{% endfor %}</td>
+                
+                <td>
+                    <a class="btn btn-light my-3" href="{{ path('app_status_show', {'id': status.id}) }}">
+                        <i class="bi bi-search"></i>
+                        Voir
+                    </a>
+                    <a class="btn btn-dark my-3" href="{{ path('app_status_edit', {'id': status.id}) }}">
+                        <i class="bi bi-pen"></i>
+                        Modifier
+                    </a>
+                    <a class="btn btn-danger my-3" href="{{ path('app_status_delete', {'id': status.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer le status?')">
+                        <i class="bi-trash me-1"></i>
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

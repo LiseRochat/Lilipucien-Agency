@@ -4,7 +4,10 @@
 	<nav aria-label="breadcrumb">
   		<ol class="breadcrumb">
     		<li class="breadcrumb-item"><a href="{{ path('app_home') }}">Accueil</a></li>
-        	<li class="breadcrumb-item active" aria-current="page">Nos Produits</li>
+			<li class="breadcrumb-item"><a href="{{ path('app_product') }}">Nos Produits</a></li>
+			{% for product in products %}
+				<li class="breadcrumb-item active" aria-current="page">{{ product.status.title }}</li>
+			{% endfor %}
   		</ol>
 	</nav>
 	<section class="py-5">
@@ -48,7 +51,7 @@
 						</div>
 					</div>
 				</div>
-			{% endfor %}
+				{% endfor %}
 			</div>
 		</div>
 	</section>

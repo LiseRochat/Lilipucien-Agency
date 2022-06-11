@@ -24,6 +24,9 @@ class Status
     #[ORM\OneToMany(mappedBy: 'status', targetEntity: Products::class)]
     private $products;
 
+    #[ORM\OneToOne(inversedBy: 'status', targetEntity: ColorsStatus::class, cascade: ['persist', 'remove'])]
+    private $color;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -84,6 +87,18 @@ class Status
                 $product->setStatus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColor(): ?ColorsStatus
+    {
+        return $this->color;
+    }
+
+    public function setColor(?ColorsStatus $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

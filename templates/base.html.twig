@@ -18,13 +18,13 @@
     </head>
     <body>
     <!-- Navigation-->
-    {% block navbar %}{% include 'includes/_navbar.html.twig' %}{% endblock %}
+   {{ render(path('app_nav'))}}
     <!-- Header-->
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">{% block h1 %}Agence Lilipucien{% endblock %}</h1>
-                <p class="lead fw-normal text-white-50 mb-0">{% block resume %}Trouvez le bien de vos rêves. L'Agence Lilipucien ne propose que des biens d'exception présent dans toute la France. {% endblock %}</p>
+                <p class="lead fw-normal text-white-50 mb-0">{% block resume %}Autem pecudum observatum cum autem et deinceps circumspecta et coeperint trucidantur nec ubi et cum inertium cedunt reperiri tela grassatores quod terna nec nec edita reperiri exsertare iniquitati lacertos milites permissi ritu montium inertium quod bina crispare tela loci coeperint et observatum deinceps autem coeperint potuerint rem vehunt adsidue exsertare.. {% endblock %}</p>
             </div>
         </div>
     </header>

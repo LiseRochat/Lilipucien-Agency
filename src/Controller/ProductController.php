@@ -11,18 +11,35 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+#[Route('/produits')]
 class ProductController extends AbstractController
 {
     /**
+     * Methode page nos produits
+     *
+     * @param ManagerRegistry $doctrine
+     * @return Response
+     */
+    #[Route('/', name: 'app_product')]
+    public function index(ManagerRegistry $doctrine): Response
+    {
+        $products = $doctrine->getRepository(Products::class)->findBy([], ['id' => 'DESC']);
+        return $this->render('home/index.html.twig', [
+            'products' => $products
+        ]);
+    }
+    
+    /**
      * Methode permettant l'affichage du produit en fonction de son id 
      */
-    #[Route('/produits/details/{id}', name: 'app_product')]
-    public function index(int $id, ManagerRegistry $doctrine): Response
+    #[Route('/details/{id}', name: 'app_product_details',  methods: ['GET'])]
+    public function productDetails(int $id, ManagerRegistry $doctrine): Response
     {
         // On recupère tous les produits
         $products = $doctrine->getRepository(Products::class)->findAll();
         // On recupère le produit sélectionné
         $product = $doctrine->getRepository(Products::class)->find($id);
+
         return $this->render('product/show.html.twig', [
             'products' => $products,
             'product' => $product,
@@ -36,7 +53,7 @@ class ProductController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/produits/ajouter', name: 'app_product_add')]
+    #[Route('/ajouter', name: 'app_product_add',  methods: ['GET', 'POST'])]
     public function productAdd(Request $request, ManagerRegistry $doctrine)
     {
         // On instancie notre objet produit
@@ -64,7 +81,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
         
-        return $this->render('product/form-product.html.twig', [
+        return $this->render('product/new.html.twig', [
             'form_title' => 'Ajouter un produit',
             'form_submit' => 'Ajoutez',
             'formProduct' => $formProduct->createView()
@@ -74,7 +91,7 @@ class ProductController extends AbstractController
     /**
      * Methode permettant la modification d'un produit
      */
-    #[Route('/produits/modifier/{id}', name: 'app_product_edit')]
+    #[Route('/modifier/{id}', name: 'app_product_edit',  methods: ['GET', 'POST'])]
     public function productEdit(int $id, Request $request, ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On récupère notre objet
@@ -86,7 +103,8 @@ class ProductController extends AbstractController
             $this->addFlash('error_product', 'Le produit n\'existe pas !');
         }
 
-        $product->setUpdatedAt(new DateTimeImmutable());
+        // Etape 01.1 : On initialise la date de mise a jours à la date d'aujourd'hui
+        $product->setUpdatedAt(new DateTimeImmutable('now'));
 
         $formProduct = $this->createForm(ProductType::class, $product);
 
@@ -103,7 +121,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('product/form-product.html.twig', [
+        return $this->render('product/edit.html.twig', [
             'form_title' => 'Modifier un produit',
             'form_submit' => 'Modifier',
             'formProduct' => $formProduct->createView(),
@@ -113,7 +131,7 @@ class ProductController extends AbstractController
     /**
      * Methode permettant la supression d'un produit
      */
-    #[Route('/product/suprimer/{id}', name: 'app_product_delete')]
+    #[Route('/suprimer/{id}', name: 'app_product_delete')]
     public function productDelete(int $id, ManagerRegistry $doctrine): Response
     {
         // Etape 01 : On recupère l'objet à supprimer
@@ -130,7 +148,7 @@ class ProductController extends AbstractController
         // Etape 03 : Methode flush()
         $entityManager->flush();
 
-        $this->addFlash('success_product', 'Le bien '.$product->getTitle(). ' a bien été supprimez !');
+        $this->addFlash('success_product', 'Le produit '.$product->getTitle(). ' a bien été supprimez !');
         return $this->redirectToRoute('app_home');
     }
 

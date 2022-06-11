@@ -1,22 +1,20 @@
 <?php
 
 namespace App\Controller;
-
-use App\Entity\Products;
+use App\Entity\Status;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class HomeController extends AbstractController
+class NavController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+    #[Route('/nav', name: 'app_nav')]
     public function index(ManagerRegistry $doctrine): Response
     {
-        $products = $doctrine->getRepository(Products::class)->findBy([], ['id' => 'DESC']);
-        return $this->render('home/index.html.twig', [
-            'products' => $products
+        $statuses = $doctrine->getRepository(Status::class)->findAll();
+        return $this->render('includes/_navbar.html.twig', [
+            'statuses' => $statuses,
         ]);
     }
-
 }
