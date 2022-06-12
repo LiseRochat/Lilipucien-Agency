@@ -24,7 +24,8 @@ class StatusController extends AbstractController
     public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine): Response
     {
         $statuses = $statusRepository->findAll();
-
+     
+  
         return $this->render('status/index.html.twig', [
             'statuses' => $statuses,
         ]);
