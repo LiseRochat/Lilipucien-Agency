@@ -1,18 +1,15 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Status;
 use App\Entity\Products;
 use App\Form\StatusType;
 use App\Repository\StatusRepository;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\Constraints\Length;
 
 #[Route('/status')]
 class StatusController extends AbstractController
@@ -24,7 +21,6 @@ class StatusController extends AbstractController
     public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine): Response
     {
         $statuses = $statusRepository->findAll();
-
         return $this->render('status/index.html.twig', [
             'statuses' => $statuses,
         ]);

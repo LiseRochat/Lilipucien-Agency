@@ -26,6 +26,7 @@ class Status
 
     #[ORM\OneToOne(inversedBy: 'status', targetEntity: ColorsStatus::class, cascade: ['persist', 'remove'])]
     private $color;
+    
 
     public function __construct()
     {
