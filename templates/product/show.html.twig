@@ -22,8 +22,11 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="badge bg-primary text-white position-absolute p-2" style="top: 0.5rem; right: 1.5rem">{{ product.status.title|default('N.C') }}</div>
-                                <img class="card-img-top" src="https://via.placeholder.com/80" alt="..." />
-                             
+                                {% if product.imageName %}
+						            <img class="card-img-top" src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="image de {{product.title}}"/>
+						        {% else %}
+						            <img class="card-img-top" src="https://via.placeholder.com/80" alt="image neutre"/>
+						        {% endif %} 
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
