@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formulaire de Contact | Agence Lilipucien{% endblock %}
+{% block title %}{{form_title}}{% endblock %}
+
 
 {% block body %}
+
+    {{ include('contact/_form.html.twig') }}
 
 {% endblock %}
