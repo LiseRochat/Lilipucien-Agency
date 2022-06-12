@@ -23,6 +23,7 @@ class ProductController extends AbstractController
     #[Route('/', name: 'app_product')]
     public function index(ManagerRegistry $doctrine): Response
     {
+        
         $products = $doctrine->getRepository(Products::class)->findBy([], ['id' => 'DESC']);
         return $this->render('home/index.html.twig', [
             'products' => $products

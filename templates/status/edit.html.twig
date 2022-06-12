@@ -2,15 +2,9 @@
 
 {% block title %}{{formTitle}}{% endblock %}
 
-{% block h1 %}{{formTitle}}{% endblock %}
-
-{% block resume %}Autem pecudum observatum cum autem et deinceps circumspecta et coeperint trucidantur nec ubi et cum inertium cedunt reperiri tela grassatores quod terna nec nec edita reperiri exsertare iniquitati lacertos milites permissi ritu montium inertium quod bina crispare tela loci coeperint et observatum deinceps autem coeperint potuerint rem vehunt adsidue exsertare. {% endblock %}
-
 
 {% block body %}
-
     {{ include('status/_form.html.twig') }}
-
     <div class="container">
         <div>
             <a class="btn btn-danger my-3" href="{{ path('app_status_delete', {'id': status.id}) }}" onclick="return confirm('Etes-vous sûr de vouloir supprimer le status?')">
@@ -25,5 +19,4 @@
             </a>
         </div>
     </div>
-
 {% endblock %}

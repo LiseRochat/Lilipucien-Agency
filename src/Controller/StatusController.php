@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Status;
 use App\Entity\Products;
 use App\Form\StatusType;
+use App\Repository\ProductsRepository;
 use App\Repository\StatusRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ class StatusController extends AbstractController
     public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine): Response
     {
         $statuses = $statusRepository->findAll();
+        // SELECT status_id, COUNT(*) AS nb FROM products GROUP BY status_id;
         return $this->render('status/index.html.twig', [
             'statuses' => $statuses,
         ]);

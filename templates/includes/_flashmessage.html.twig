@@ -1,0 +1,17 @@
+{# ********** DEBUT Affichages des messages d'alertes ********** #}
+{% for message in app.flashes('success_product') %}
+	<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+			<p class="text-center"><strong>Félicitation </strong>{{ message }}</p>
+	</div>
+{% endfor %}
+{% for message in app.flashes('error_product') %}
+	<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+		<p class="text-center"><strong>Erreur : </strong>{{ message }}</p>
+	</div>
+{% endfor %}
+{% for message in app.flashes('success_status') %}
+	<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+		<p class="text-center"><strong>Félicitation </strong>{{ message }}</p>
+	</div>
+{% endfor %}
+{# ********** FIN Affichages des messages d'alertes ********** #}
