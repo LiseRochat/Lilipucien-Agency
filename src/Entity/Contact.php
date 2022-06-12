@@ -38,7 +38,7 @@ class Contact
     }
 
     public function getFullname(): ?string
-    {-r
+    {
         return $this->fullname;
     }
 
