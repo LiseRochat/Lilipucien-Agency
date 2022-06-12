@@ -6,6 +6,7 @@ use App\Entity\Status;
 use App\Entity\Products;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -56,6 +57,10 @@ class ProductType extends AbstractType
                 'class' => Status::class,
                 'choice_label' => 'title',
                 'label' => 'Status du Produit',              
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'label' => 'Image Principal du bien',
             ]);
     }
 
