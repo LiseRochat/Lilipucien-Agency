@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Status;
 use App\Entity\Products;
 use App\Form\StatusType;
 use App\Repository\StatusRepository;
-use Doctrine\ORM\Mapping\Id;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
