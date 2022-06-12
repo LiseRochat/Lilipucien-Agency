@@ -14,4 +14,9 @@
 		<p class="text-center"><strong>Félicitation </strong>{{ message }}</p>
 	</div>
 {% endfor %}
+{% for message in app.flashes('success_contact') %}
+	<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+		<p class="text-center"><strong>Félicitation </strong>{{ message }}</p>
+	</div>
+{% endfor %}
 {# ********** FIN Affichages des messages d'alertes ********** #}
