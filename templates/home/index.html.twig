@@ -9,18 +9,9 @@
 	</nav>
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
-		{# ********** DEBUT Affichages des messages d'alertes ********** #}
-		{% for message in app.flashes('success_product') %}
-			<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
-				<p class="text-center"><strong>Félicitation </strong>{{ message }}</p>
-			</div>
-		{% endfor %}
-		{% for message in app.flashes('error_product') %}
-			<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
-				<p class="text-center"><strong>Erreur : </strong>{{ message }}</p>
-			</div>
-		{% endfor %}
-		{# ********** FIN Affichages des messages d'alertes ********** #}
+		   	{#  DEBUT Affichage des messages alert #}
+				{% include 'includes/_flashmessage.html.twig' %}
+			{#  FIN Affichage des messages alert #}
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 			{% for product in products %}
 				<div class="col mb-5">
