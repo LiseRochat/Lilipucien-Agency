@@ -4,8 +4,13 @@ namespace App\Entity;
 
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
+/**
+ * @Vich\Uploadable
+ */
 class Products
 {
     #[ORM\Id]
@@ -45,6 +50,18 @@ class Products
 
     #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'products')]
     private $status;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName", size="imageSize")
+     * 
+     * @var File|null
+     */
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string')]
+    private ?string $imageName = null;
 
     public function getId(): ?int
     {
@@ -181,5 +198,46 @@ class Products
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     */ 
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /** 
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    /**
+     * Get the value of imageName
+     */ 
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    /**
+     * Set the value of imageName
+     *
+     * @return  self
+     */ 
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 }
