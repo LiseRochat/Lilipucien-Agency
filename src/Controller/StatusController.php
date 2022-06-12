@@ -23,19 +23,10 @@ class StatusController extends AbstractController
     #[Route('/', name: 'app_status_index')]
     public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine): Response
     {
-        // Etape 01 : On récupère tous les status
         $statuses = $statusRepository->findAll();
-
-        // Etape 02 : On parcour le tableau
-        for($i = 0; $i < count($statuses); $i++){
-
-            // Etape 03 : On recupère dans un tableau tous les produits possédant le status_id à l'id status
-            $products[$i] = $doctrine->getRepository(Products::class)->findBy(['status' => $statuses[$i]]);
-        } 
 
         return $this->render('status/index.html.twig', [
             'statuses' => $statuses,
-            'products' => $products,
         ]);
     }
 
