@@ -39,7 +39,7 @@ class ProductsRepository extends ServiceEntityRepository
         }
     }
 
-    public function count($status_id): array
+    public function countProductBystatus($status_id)
     {
         return  $this->createQueryBuilder('p')
             ->where('p.status_id := status_id')
@@ -49,9 +49,17 @@ class ProductsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
-
     }
 
+    public function test()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        return  $qb->select('t')
+               ->from('App\Entity\Products','t')
+               ->where($qb->expr()->isNotNull('t.status'))
+               ->getQuery()
+               ->getResult();
+    }
 
 //    /**
 //     * @return Products[] Returns an array of Products objects

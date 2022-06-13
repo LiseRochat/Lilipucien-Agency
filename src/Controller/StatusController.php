@@ -4,8 +4,9 @@ namespace App\Controller;
 use App\Entity\Status;
 use App\Entity\Products;
 use App\Form\StatusType;
-use App\Repository\ProductsRepository;
 use App\Repository\StatusRepository;
+use App\Repository\ProductsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,12 +20,29 @@ class StatusController extends AbstractController
      * Methode permettant l'affichage de tous les status
      */
     #[Route('/', name: 'app_status_index')]
-    public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine): Response
+    public function index(StatusRepository $statusRepository, ManagerRegistry $doctrine, EntityManagerInterface $em): Response
     {
         $statuses = $statusRepository->findAll();
+        // Recupère tous les produits avec des status non null
+        $products = $em->getRepository(Products::class)->test();
+
+        $productsByStatus = [];
+        
+        foreach($products as $product){
+            
+            if(!isset($productsByStatus[$product->getStatus()->getId()]))
+            {
+                $productsByStatus[$product->getStatus()->getId()] = 1;
+
+            } else {
+                $productsByStatus[$product->getStatus()->getId()] += 1;
+            }
+        }
+
         // SELECT status_id, COUNT(*) AS nb FROM products GROUP BY status_id;
         return $this->render('status/index.html.twig', [
             'statuses' => $statuses,
+            'productsByStatus' => $productsByStatus,
         ]);
     }
 
@@ -88,9 +106,17 @@ class StatusController extends AbstractController
      * Methode permettant la modification d'un statu
      */
     #[Route('/modifier/{id}', name: 'app_status_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Status $status, StatusRepository $statusRepository): Response
+    public function edit(Request $request, Status $status, StatusRepository $statusRepository, EntityManagerInterface $em): Response
     {
-        $formStatus = $this->createForm(StatusType::class, $status);
+        $colorFree = $em->getRepository(Status::class)->selectFreeColors();
+        echo '<pre>';
+        var_dump($colorFree);
+        echo '</pre>';
+
+        $formStatus = $this->createForm(StatusType::class, $status, [
+            'colorFree' => $colorFree
+        ]);
+
         $formStatus->handleRequest($request);
 
         if ($formStatus->isSubmitted() && $formStatus->isValid()) {

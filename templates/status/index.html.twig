@@ -15,6 +15,7 @@
         Ajouter un statu
     </a>
     {{dump(statuses)}}
+     {# {{dump(products)}} #}
     <table class="table">
         <thead>
             <tr>
@@ -31,9 +32,11 @@
                 <td>{{ status.id }}</td>
                 <td>{{ status.title }}</td>
                 <td>{{ status.description }}</td>
-                
-                {# <td>{{ status.nbProduct }}</td> #}
-                
+                {% if  productsByStatus[status.id] is defined %}
+                    <td>{{ productsByStatus[status.id] }}</td>
+                {% else %}
+                    <td>0</td>
+                {% endif %}
                 <td>
                     <a class="btn btn-light my-3" href="{{ path('app_status_show', {'id': status.id}) }}">
                         <i class="bi bi-search"></i>

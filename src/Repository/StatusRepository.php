@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Status;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Status>
@@ -37,6 +39,26 @@ class StatusRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function selectFreeColors()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $colorsUse =   $qb->select('c.id')
+            ->from('App\Entity\Status','s')
+            ->innerJoin('s.color', 'c')
+            ->where($qb->expr()->isNotNull('s.color'))
+            ->getQuery()
+            ->getResult(AbstractQuery::HYDRATE_SCALAR_COLUMN);
+
+        $colorsFree =  $qb->select('color')
+            ->from('App\Entity\ColorsStatus', 'color')
+            ->where($qb->expr()->notIn('color.id', $colorsUse))
+            ->getQuery()
+            ->getResult();
+
+        return $colorsFree;
+
     }
 
 //    /**

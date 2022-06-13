@@ -3,18 +3,18 @@
 namespace App\Form;
 
 use App\Entity\Status;
-use App\Entity\ColorsStatus;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class StatusType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $this->colorFree = $options['colorFree'];
         $builder
             ->add('title', TextType::class, [
                 'required' => true,
@@ -24,10 +24,9 @@ class StatusType extends AbstractType
                 'required' => false,
                 'label' => 'Description du statu'
             ])
-            ->add('color', EntityType::class, [
+            ->add('color', ChoiceType::class, [
                 'required' => false,
-                'class' => ColorsStatus::class,
-                'choice_label' => 'name',
+                'choices' => $this->colorFree,
                 'label' => 'Couleur du statu'
             ]);
     }
@@ -36,6 +35,7 @@ class StatusType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Status::class,
+            'colorFree' => null,
         ]);
     }
 }
