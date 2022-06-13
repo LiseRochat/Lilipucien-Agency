@@ -1,0 +1,19 @@
+   <h2>{{form_title}}</h2>
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Mots de Passe'
+        }) }}
+         {{ form_row(registrationForm.name, {
+            label: 'Nom'
+        }) }}
+         {{ form_row(registrationForm.age, {
+            label: 'Age'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms, {
+            label: 'Accepter les termes'
+        }) }}
+
+        <input class = "btn btn-primary my-3" type="submit" value="{{form_submit}}"/>
+    {{ form_end(registrationForm) }}
